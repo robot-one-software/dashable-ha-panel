@@ -14,6 +14,8 @@ internet at all.
 - **Web editor:** <https://my.dashable.app>
 - **Learn more / sign up:** <https://dashable.app>
 
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=robot-one-software&repository=dashable-ha-panel&category=Integration)
+
 ---
 
 ## What you need
@@ -32,6 +34,12 @@ Assistant directly through your existing logged-in session.
 ---
 
 ## Install
+
+**One-click (easiest):** use the badge above — [Open in HACS](https://my.home-assistant.io/redirect/hacs_repository/?owner=robot-one-software&repository=dashable-ha-panel&category=Integration).
+It opens your Home Assistant, adds this repository to HACS, and takes you
+straight to the download page.
+
+**Manual:**
 
 1. In Home Assistant, open **HACS → three-dot menu → Custom repositories**.
 2. Add:
