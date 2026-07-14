@@ -1,0 +1,9 @@
+Dashable for Home Assistant
+Copyright 2025 Robot One Software
+
+This product includes software developed by Robot One Software
+(https://dashable.app).
+
+The compiled Dashable dashboard viewer (custom_components/dashable/frontend/
+dashable-panel.js) and the "Dashable" name and logos are the property of
+Robot One Software. This distribution is provided for use with Home Assistant.
