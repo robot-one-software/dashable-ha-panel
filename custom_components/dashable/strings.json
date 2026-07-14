@@ -1,0 +1,21 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect Dashable",
+        "description": "Paste a sync token from Dashable (Settings → HA Panel → Generate sync token). Your dashboards will appear in the sidebar.",
+        "data": {
+          "token": "Sync token",
+          "base_url": "Dashable URL"
+        }
+      }
+    },
+    "error": {
+      "invalid_token": "That sync token was rejected. Generate a new one in Dashable.",
+      "cannot_connect": "Couldn't reach Dashable. Check the URL and your internet connection."
+    },
+    "abort": {
+      "already_configured": "Dashable is already set up."
+    }
+  }
+}
