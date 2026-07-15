@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.7
+
+- Fixed the Insight Graph widget failing to load its chart ("fetch failed") inside the panel — history is now fetched over the authenticated Home Assistant WebSocket instead of a REST call that required a token the panel doesn't have.
+- Fixed the Web Snippet widget's page/media proxy not working in the panel.
+- Fixed the color-light widget's power button still floating on top of other widgets regardless of stacking order.
+
 ## v0.3.6
 
 - Fixed WebRTC camera streams timing out with "Called in wrong state: stable" — duplicate/late SDP answers from Home Assistant's WebRTC signaling are now ignored instead of breaking the stream.
