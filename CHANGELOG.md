@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.10
+
+- WebRTC camera widgets now automatically reconnect after a transient stream error (e.g. a go2rtc/camera hiccup or network blip) instead of showing a stuck error until you refresh. Retries use a backoff and pause while the tab is hidden.
+
 ## v0.3.9
 
 - Local Media widget (capture cards / webcams) now works in the panel over HTTPS: the configured device is matched by name so a device picked in the Dashable web app resolves inside Home Assistant. When Home Assistant is served over plain HTTP, the widget now shows a clear "needs HTTPS" message instead of silently disappearing.
