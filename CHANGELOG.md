@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.8
+
+- Dashable brand icon now shows in the Home Assistant integrations panel and HACS, using the built-in local brand images (Home Assistant 2026.3+).
+
 ## v0.3.7
 
 - Fixed the Insight Graph widget failing to load its chart ("fetch failed") inside the panel — history is now fetched over the authenticated Home Assistant WebSocket instead of a REST call that required a token the panel doesn't have.
