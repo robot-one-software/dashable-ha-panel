@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.12
+
+- Image widgets can now swap their image based on a condition (conditional styling → Image Source), with fade/dissolve or slide transitions between images.
+
 ## v0.3.11
 
 - Weather widgets no longer show a stuck loading spinner in the panel. Their data source isn't available inside Home Assistant, so they now simply don't appear instead of spinning.
