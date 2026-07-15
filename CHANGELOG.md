@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.11
+
+- Weather widgets no longer show a stuck loading spinner in the panel. Their data source isn't available inside Home Assistant, so they now simply don't appear instead of spinning.
+
 ## v0.3.10
 
 - WebRTC camera widgets now automatically reconnect after a transient stream error (e.g. a go2rtc/camera hiccup or network blip) instead of showing a stuck error until you refresh. Retries use a backoff and pause while the tab is hidden.
