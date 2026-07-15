@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.9
+
+- Local Media widget (capture cards / webcams) now works in the panel over HTTPS: the configured device is matched by name so a device picked in the Dashable web app resolves inside Home Assistant. When Home Assistant is served over plain HTTP, the widget now shows a clear "needs HTTPS" message instead of silently disappearing.
+
 ## v0.3.8
 
 - Dashable brand icon now shows in the Home Assistant integrations panel and HACS, using the built-in local brand images (Home Assistant 2026.3+).
