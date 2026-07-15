@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.6
+
+- Fixed WebRTC camera streams timing out with "Called in wrong state: stable" — duplicate/late SDP answers from Home Assistant's WebRTC signaling are now ignored instead of breaking the stream.
+- Fixed the color-light and color-picker widgets always rendering on top of other widgets regardless of stacking order.
+- Fixed a stray top border on the color-picker's colour-temperature row when colours are disabled.
+
 ## v0.3.5
 
 - Toolbar **Edit** button — opens the Dashable web editor.
