@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.21
+
+- The needle Gauge now has a **Show Value Text** toggle (hide it for a clean arc-only gauge) and a **Decimal Places** option — no more surprise decimals like 2407.38; leave it blank to keep the previous automatic behaviour.
+
 ## v0.3.20
 
 - Animated background effects now render **inside the dashboard** — above the solid background colour and behind every widget — instead of around it. A solid colour plus an effect on top now works as expected.
