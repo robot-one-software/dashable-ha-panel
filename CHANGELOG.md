@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.19
+
+- **17 animated background effects** — the new effects system renders in the panel: Floating Dots (rebuilt with full-screen coverage and colour control), Floating Orbs, Morphing Bubbles, Gradient Flow, Aurora, Parallax Stars, Twinkling Stars, Snowfall, Ash Fall, Colour Drops, Cyber Particles, Fireflies, Bokeh, Sliding Diagonals, Floating Shapes, Ripples, and Cascading Waves. Configure per dashboard (or inside Visual Boxes) in the Dashable editor with colours, density, speed, size, and intensity.
+
 ## v0.3.18
 
 - Fixed image widgets going blank after a page reload (a transition race, most visible with background removal or cropping enabled) — the widget showed "configure image source" until the URL was re-entered.
