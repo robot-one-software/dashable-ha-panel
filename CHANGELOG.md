@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.18
+
+- Fixed image widgets going blank after a page reload (a transition race, most visible with background removal or cropping enabled) — the widget showed "configure image source" until the URL was re-entered.
+- Fixed the Insight Graph showing "WebSocket not connected" after a reload — the history fetch now waits for the Home Assistant connection and fires as soon as it's up.
+
 ## v0.3.17
 
 - Fixed the Radial Progress ring not rendering in "single colour (morphs with value)" mode.
