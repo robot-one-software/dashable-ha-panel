@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.17
+
+- Fixed the Radial Progress ring not rendering in "single colour (morphs with value)" mode.
+- Much smoother colour blending on the gauge's blended-spectrum arc, the radial spectrum ring, and the linear gauge's spectrum bar (finer gradient resolution, no visible colour steps or seams).
+
 ## v0.3.16
 
 - **Gauge overhaul** — the needle now spring-animates (no more jumping), and the arc has three modes: classic colour bands, a smooth blended spectrum, or fill-to-value in a colour that morphs with the reading. Optional glow and value-follows-colour.
