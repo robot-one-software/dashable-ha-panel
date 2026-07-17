@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.14
+
+- Image widgets can now be cropped with per-edge sliders (top/bottom/left/right, set in the Dashable editor). Cropping runs in the same one-time pass as background removal, so the two combine cleanly.
+
 ## v0.3.13
 
 - **Offline image cache** — internet images referenced by dashboards are now downloaded once by the integration, stored on your Home Assistant box, and served locally. Dashboards render fully offline and images load faster. Pressing **Sync** also refreshes the cached copies.
