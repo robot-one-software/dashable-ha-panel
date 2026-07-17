@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.22
+
+- Fixed several widget types rendering as nothing when placed **inside a group**: Linear Gauge, Color Light, Insight Graph, Smart Group (Viewer), Web Snippet, and Flip Widget. They appeared in the group editor but vanished on the dashboard and in the panel.
+
 ## v0.3.21
 
 - The needle Gauge now has a **Show Value Text** toggle (hide it for a clean arc-only gauge) and a **Decimal Places** option — no more surprise decimals like 2407.38; leave it blank to keep the previous automatic behaviour.
