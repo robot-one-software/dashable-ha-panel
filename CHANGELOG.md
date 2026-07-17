@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.20
+
+- Animated background effects now render **inside the dashboard** — above the solid background colour and behind every widget — instead of around it. A solid colour plus an effect on top now works as expected.
+- Fixed effect animations stuttering/restarting every ~half-second; they now run continuously and smoothly.
+
 ## v0.3.19
 
 - **17 animated background effects** — the new effects system renders in the panel: Floating Dots (rebuilt with full-screen coverage and colour control), Floating Orbs, Morphing Bubbles, Gradient Flow, Aurora, Parallax Stars, Twinkling Stars, Snowfall, Ash Fall, Colour Drops, Cyber Particles, Fireflies, Bokeh, Sliding Diagonals, Floating Shapes, Ripples, and Cascading Waves. Configure per dashboard (or inside Visual Boxes) in the Dashable editor with colours, density, speed, size, and intensity.
