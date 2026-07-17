@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.16
+
+- **Gauge overhaul** — the needle now spring-animates (no more jumping), and the arc has three modes: classic colour bands, a smooth blended spectrum, or fill-to-value in a colour that morphs with the reading. Optional glow and value-follows-colour.
+- **Radial Progress overhaul** — new spectrum mode (colour ranges painted around the ring), segmented-ring style with adjustable count and gap, glow, and value-follows-colour. Colour blending now matches the linear gauge exactly.
+- Existing gauges keep rendering exactly as before — all new options are opt-in.
+
 ## v0.3.15
 
 - New **Linear Gauge** widget — a display-only animated bar for live values (energy, temperature, volume…). Spring-animated so changing values morph smoothly instead of jumping; horizontal or vertical; solid / segmented / dots / retro styles; user-defined colour ranges that blend as the value moves (single-colour or spectrum modes); optional ticks and value labels.
