@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.23
+
+- **Conditional animated effects** — dashboard backgrounds and visual boxes can now switch their animated effect based on an entity (e.g. Colour Drops while it’s raining, off otherwise). Configure under Background Effects (dashboard) or Conditional Styling (visual box) in the editor.
+- Visual box animated effects are now clipped to the box’s shape (heart, star, circle…) instead of spilling into the square bounds.
+- Fixed a stray "0" appearing under a visual box after clearing its border.
+
 ## v0.3.22
 
 - Fixed several widget types rendering as nothing when placed **inside a group**: Linear Gauge, Color Light, Insight Graph, Smart Group (Viewer), Web Snippet, and Flip Widget. They appeared in the group editor but vanished on the dashboard and in the panel.
