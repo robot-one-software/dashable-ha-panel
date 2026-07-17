@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.15
+
+- New **Linear Gauge** widget — a display-only animated bar for live values (energy, temperature, volume…). Spring-animated so changing values morph smoothly instead of jumping; horizontal or vertical; solid / segmented / dots / retro styles; user-defined colour ranges that blend as the value moves (single-colour or spectrum modes); optional ticks and value labels.
+
 ## v0.3.14
 
 - Image widgets can now be cropped with per-edge sliders (top/bottom/left/right, set in the Dashable editor). Cropping runs in the same one-time pass as background removal, so the two combine cleanly.
