@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.13
+
+- **Offline image cache** — internet images referenced by dashboards are now downloaded once by the integration, stored on your Home Assistant box, and served locally. Dashboards render fully offline and images load faster. Pressing **Sync** also refreshes the cached copies.
+- **Background removal (chroma key)** — image widgets can strip a background colour to transparency (pick the colour, tolerance, and edge softness in the Dashable editor). Processed once per image, so kiosks pay no ongoing cost.
+
 ## v0.3.12
 
 - Image widgets can now swap their image based on a condition (conditional styling → Image Source), with fade/dissolve or slide transitions between images.

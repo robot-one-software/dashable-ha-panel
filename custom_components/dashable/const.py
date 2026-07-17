@@ -24,3 +24,10 @@ FRONTEND_URL = "/dashable_files/dashable-panel.js"
 # offline restart.
 STORAGE_KEY = "dashable_dashboards"
 STORAGE_VERSION = 1
+
+# Offline image cache: internet images referenced by dashboards are downloaded
+# once and served locally, so dashboards render offline and images are
+# same-origin for the panel.
+IMAGES_DIR = "dashable_images"  # under the HA config directory
+IMAGES_URL = "/dashable_files/images"
+IMAGES_STORAGE_KEY = "dashable_image_cache"
