@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.4.0
+
+A large feature release bringing the panel viewer up to date with the Dashable web app.
+
+- **Calendar & Agenda widgets now work in the panel** — events are fetched through Home Assistant's own API instead of a cross-origin request that CORS blocked.
+- **Looping video backgrounds** — image widgets play `.mp4`/`.webm` URLs as muted, looping video. The offline cache now downloads referenced videos too, so they keep playing without internet.
+- **New Stage widget** — a region whose occupants are chosen live by rules and priority: e.g. show the sports scoreboard while a game is on, otherwise a camera; boost a camera into the hero slot when it sees motion. Auto/hero/split/grid layouts, fit or fill scaling.
+- **Event Log feed** — the Historical Ticker gains a "Feed" mode: events slide in at the top with live "5m ago" timestamps, older rows push down. Per-entity value filters ("only log 'on'") and custom event text.
+- **Smart Repeater upgrades** — live sorting (numeric-aware) and value filters, so lists like battery levels re-order themselves and can show only entries below a threshold.
+- **Dynamic colours** — visual box and icon colours can bind to a light's live colour (`entity:light.x`), with graceful fallbacks.
+- **Tappable visual boxes** and camera streams that can fill their tile (`cover` fit) for uniform camera walls.
+- **Fixes**: 3D-tilted groups losing touch response on part of the widget; circular visual boxes' borders being clipped flat when combined with the glass effect; six widget types invisible inside groups on older panels; smoother gauge/radial rendering.
+
+
 ## v0.3.23
 
 - **Conditional animated effects** — dashboard backgrounds and visual boxes can now switch their animated effect based on an entity (e.g. Colour Drops while it’s raining, off otherwise). Configure under Background Effects (dashboard) or Conditional Styling (visual box) in the editor.

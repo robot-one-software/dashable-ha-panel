@@ -25,6 +25,7 @@ from .const import DOMAIN, IMAGES_DIR, IMAGES_STORAGE_KEY, IMAGES_URL, STORAGE_V
 _LOGGER = logging.getLogger(__name__)
 
 MAX_IMAGE_BYTES = 20 * 1024 * 1024  # 20 MB per image
+MAX_VIDEO_BYTES = 60 * 1024 * 1024  # 60 MB per video (looping backgrounds)
 MAX_URLS_PER_CALL = 100
 FETCH_TIMEOUT = 20  # seconds
 
@@ -38,7 +39,13 @@ _CONTENT_TYPE_EXT = {
     "image/avif": ".avif",
     "image/x-icon": ".ico",
     "image/vnd.microsoft.icon": ".ico",
+    # Looping video backgrounds (image widgets play these muted/looped).
+    "video/mp4": ".mp4",
+    "video/webm": ".webm",
+    "video/quicktime": ".mov",
 }
+
+_VIDEO_EXTS = {".mp4", ".webm", ".mov"}
 
 
 def images_path(hass: HomeAssistant) -> str:
@@ -60,6 +67,10 @@ def _sniff_ext(data: bytes) -> str | None:
         return ".bmp"
     if b"ftypavif" in data[:32]:
         return ".avif"
+    if data[4:8] == b"ftyp":
+        return ".mp4"  # ISO base media (mp4/mov family)
+    if data.startswith(b"\x1a\x45\xdf\xa3"):
+        return ".webm"  # EBML (webm/mkv)
     head = data[:512].lstrip()
     if head.startswith(b"<?xml") or head.startswith(b"<svg"):
         return ".svg"
@@ -88,15 +99,17 @@ async def _async_download(hass: HomeAssistant, url: str) -> str | None:
             if resp.status != 200:
                 return None
             content_type = (resp.content_type or "").lower()
-            data = await resp.content.read(MAX_IMAGE_BYTES + 1)
+            data = await resp.content.read(MAX_VIDEO_BYTES + 1)
     except Exception:  # noqa: BLE001 - offline/unreachable is expected
         return None
-    if not data or len(data) > MAX_IMAGE_BYTES:
+    if not data:
         return None
 
     ext = _CONTENT_TYPE_EXT.get(content_type) or _sniff_ext(data)
     if ext is None:
-        return None  # not an image we recognize — leave the original URL alone
+        return None  # not media we recognize — leave the original URL alone
+    if len(data) > (MAX_VIDEO_BYTES if ext in _VIDEO_EXTS else MAX_IMAGE_BYTES):
+        return None
 
     name = hashlib.sha256(url.encode()).hexdigest()[:32] + ext
     path = os.path.join(images_path(hass), name)
