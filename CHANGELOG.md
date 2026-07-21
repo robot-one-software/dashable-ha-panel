@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.1
+
+- **"New for this screen" toolbar button** — creates a new dashboard sized exactly for the device you're viewing on. The panel measures its own usable area and opens the Dashable editor with the create dialog pre-filled to that resolution — no more relaying screen sizes by hand when your only access to a device is the Home Assistant app.
+
 ## v0.5.0
 
 Stage widget maturity release: production-style camera switching.
