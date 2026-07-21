@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.6.0
+
+- **Create dashboards straight from the panel** — "New for this screen" now asks for a name right in Home Assistant and creates the dashboard in your Dashable account through the integration's sync token. No Dashable login needed on the device: the panel measures the screen, the dashboard is created at exactly that size, appears in the picker immediately, and a confirmation tells you it's ready to design at my.dashable.app. (Requires a Home Assistant restart after updating — the integration gained a new command.)
+
 ## v0.5.1
 
 - **"New for this screen" toolbar button** — creates a new dashboard sized exactly for the device you're viewing on. The panel measures its own usable area and opens the Dashable editor with the create dialog pre-filled to that resolution — no more relaying screen sizes by hand when your only access to a device is the Home Assistant app.

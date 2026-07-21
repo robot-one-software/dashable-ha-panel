@@ -18,7 +18,12 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.storage import Store
 from homeassistant.loader import async_get_integration
 
-from .api import DashableApiError, DashableAuthError, async_fetch_dashboards
+from .api import (
+    DashableApiError,
+    DashableAuthError,
+    async_create_dashboard,
+    async_fetch_dashboards,
+)
 from .const import (
     CONF_BASE_URL,
     CONF_TOKEN,
@@ -89,6 +94,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         websocket_api.async_register_command(hass, ws_list)
         websocket_api.async_register_command(hass, ws_get)
         websocket_api.async_register_command(hass, ws_sync)
+        websocket_api.async_register_command(hass, ws_create)
         websocket_api.async_register_command(hass, ws_cache_images)
         domain_data["_ws_registered"] = True
 
@@ -180,3 +186,39 @@ async def ws_sync(hass: HomeAssistant, connection: websocket_api.ActiveConnectio
         connection.send_error(msg["id"], "sync_failed", str(err))
         return
     connection.send_result(msg["id"], {"count": count})
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "dashable/create",
+        vol.Required("name"): str,
+        vol.Optional("width"): vol.Any(int, None),
+        vol.Optional("height"): vol.Any(int, None),
+    }
+)
+@websocket_api.async_response
+async def ws_create(hass: HomeAssistant, connection: websocket_api.ActiveConnection, msg: dict) -> None:
+    """Create a new dashboard in Dashable (sized for this device), then re-sync
+    so it shows up in the panel picker immediately."""
+    entry: ConfigEntry = hass.data[DOMAIN]["entry"]
+    session = async_get_clientsession(hass)
+    try:
+        created = await async_create_dashboard(
+            session,
+            entry.data[CONF_BASE_URL],
+            entry.data[CONF_TOKEN],
+            msg["name"],
+            msg.get("width"),
+            msg.get("height"),
+        )
+    except DashableAuthError:
+        connection.send_error(msg["id"], "auth", "Sync token was rejected.")
+        return
+    except DashableApiError as err:
+        connection.send_error(msg["id"], "create_failed", str(err))
+        return
+    try:
+        await _async_sync(hass)
+    except Exception:  # noqa: BLE001 - creation succeeded; sync can catch up later
+        _LOGGER.warning("Dashable: post-create sync failed; press Sync to refresh")
+    connection.send_result(msg["id"], {"id": created.get("id"), "name": created.get("name")})

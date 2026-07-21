@@ -38,3 +38,38 @@ async def async_fetch_dashboards(
         raise DashableApiError(f"Could not reach Dashable: {err}") from err
 
     return payload.get("dashboards", [])
+
+
+async def async_create_dashboard(
+    session: aiohttp.ClientSession,
+    base_url: str,
+    token: str,
+    name: str,
+    width: int | None,
+    height: int | None,
+) -> dict:
+    """Create a new (empty) dashboard for the token's owner.
+
+    Returns {"id", "name", "width", "height"}.
+    """
+    url = f"{base_url.rstrip('/')}/api/ha/create-dashboard"
+    try:
+        async with async_timeout.timeout(30):
+            async with session.post(
+                url,
+                headers={"Authorization": f"Bearer {token}"},
+                json={"name": name, "width": width, "height": height},
+            ) as resp:
+                if resp.status == 401:
+                    raise DashableAuthError("Sync token was rejected.")
+                if resp.status != 200:
+                    try:
+                        detail = (await resp.json()).get("error")
+                    except Exception:  # noqa: BLE001 - non-JSON error body
+                        detail = (await resp.text())[:200]
+                    raise DashableApiError(detail or f"Dashable returned {resp.status}")
+                return await resp.json()
+    except DashableAuthError:
+        raise
+    except aiohttp.ClientError as err:
+        raise DashableApiError(f"Could not reach Dashable: {err}") from err
