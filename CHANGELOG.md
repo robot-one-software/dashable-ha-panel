@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.5.0
+
+Stage widget maturity release: production-style camera switching.
+
+- **Any widget can be a Stage member** — not just groups. Drop a WebRTC player, camera, or single widget straight onto the roster; it renders scaled into its slot.
+- **Show at home when off stage** — a member can keep its normal spot on the dashboard and "snap" onto the stage only while its rules fire (e.g. a camera thumbnail that jumps to the hero slot on motion, then returns home). The home copy hides only while the member is actually occupying a stage slot.
+- **Priority-zero semantics** — base priority 0 (or below) keeps a member off the stage entirely; a boost rule then stages it only while the rule matches. Clean choreography for motion-driven camera walls.
+- **Custom slot layouts** — design your own numbered zones (any position/size, per-slot horizontal & vertical alignment, aspect-ratio lock). Members fill zones in priority order: slot 1 = most important.
+- **Persistent WebRTC streams** — camera streams now survive moving between the stage and the dashboard, changing slots, and brief hides. No more spinner and full reconnect on every move: streams are shared, kept alive through transitions, and two widgets showing the same camera share one connection.
+
 ## v0.4.0
 
 A large feature release bringing the panel viewer up to date with the Dashable web app.
