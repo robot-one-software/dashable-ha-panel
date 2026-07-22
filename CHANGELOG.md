@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.7
+
+- **Conditional navigation can target springboard pages** — a dashboard's navigation rules can now snap to a page on the same dashboard (next / previous / a specific page number) in addition to jumping to another dashboard. Great for kiosks: e.g. a motion sensor snaps the wall tablet to the security page automatically. Conditional navigation now runs inside the panel, not just the web app.
+
 ## v0.7.6
 
 - **Toggle knobs no longer vanish while a dashboard loads** — switching dashboards in the panel briefly rendered the sliders without their knobs (a WebKit layout quirk with the panel's fit-to-screen scaling); the knobs now size themselves explicitly and are visible from the first frame.
