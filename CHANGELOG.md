@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.7.12
+
+- **Slider touch tracking fixed when rotated inside a group** — a slider rotated indirectly by a rotated group (or nested groups) now registers touches in the right place instead of jumping the wrong way. It accounts for the full accumulated rotation, not just the slider's own.
+- **New "Bass Pump" animation** — a rhythmic ba-ba-bum zoom pulse, available in any widget's Animation settings. Great on speaker icons/images to fake a beat.
+
 ## v0.7.11
 
 - **Clearer Media Preset errors for Music Assistant favorites** — playing a Music Assistant favorite requires a player that Music Assistant controls. Choosing a non-MA player now shows a clear message ("select a Music Assistant player") instead of a cryptic "not implemented" service error.
