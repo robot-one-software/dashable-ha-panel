@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.9.1
+
+- **Virtual devices are now first-class everywhere** — each virtual device now appears as its own entity, so it works in every widget without special support: Linear Gauge, Buttons (service calls resolve to the live player automatically), conditional styling, text transforms, and anything else that reads an entity. Previously only a handful of widgets understood virtual devices.
+
 ## v0.9.0
 
 - **Virtual devices work everywhere** — the merged native + Music Assistant "virtual devices" can now be targeted across the Media Player, Image (album art), Volume Slider, Media Preset, Toggle Slider, and Entity Value widgets, and in the Concatenate transform. Pickers list them with a link icon, and Dashable always resolves to whichever source is actually live.
