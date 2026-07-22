@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.7.6
+
+- **Toggle knobs no longer vanish while a dashboard loads** — switching dashboards in the panel briefly rendered the sliders without their knobs (a WebKit layout quirk with the panel's fit-to-screen scaling); the knobs now size themselves explicitly and are visible from the first frame.
+- **Percentage transform** — a new value transform turns fractions into percentages (0.62 → 62%): set what raw value equals 100% (1, 255, 1000, …), pick decimal places, and optionally append the % sign. Available on every widget with Transformations, including Entity Value.
+
 ## v0.7.5
 
 - **Toggle sliders for media players and covers** — the toggle slider can now power TVs and speakers on/off, and open/close covers like garage doors and blinds (it knows a "playing" TV is on and an "opening" garage is open, and uses the proper open/close services for covers).
