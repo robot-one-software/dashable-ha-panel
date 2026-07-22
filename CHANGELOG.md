@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.8
+
+- **Media Preset buttons can play Music Assistant favorites** — favorites (`library://…` and provider URIs) now play through Music Assistant on any MA player. Import them from the Dashable editor's Media Preset properties (Buttons → "Import from Music Assistant favorites"), then assign to buttons. Playlists, radio, albums, tracks, and artists are all supported.
+
 ## v0.7.7
 
 - **Conditional navigation can target springboard pages** — a dashboard's navigation rules can now snap to a page on the same dashboard (next / previous / a specific page number) in addition to jumping to another dashboard. Great for kiosks: e.g. a motion sensor snaps the wall tablet to the security page automatically. Conditional navigation now runs inside the panel, not just the web app.
