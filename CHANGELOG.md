@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.1
+
+- **"Go to Page" everywhere** — the page-snap action is now available on every widget that supports navigation: images, camera streams, WebRTC players, visual boxes (including shape/vector drawings), buttons, and icons. Tap a full-screen camera to snap to the next page, or give a visual box region a page action.
+
 ## v0.7.0
 
 - **Dashboard pages (springboard screens)** — a fixed-size dashboard can now be several screens side by side. Viewers see one page at a time; buttons or icons with the new "Go to Page" action snap between them with a smooth slide, exactly like an iPhone home screen. All pages stay live while off-screen — camera streams keep playing, so paging back is instant. Set the page count under Dashboard properties in the editor, design across the numbered page boundaries, and sync.
