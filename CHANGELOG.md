@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.0
+
+- **Dashboard pages (springboard screens)** — a fixed-size dashboard can now be several screens side by side. Viewers see one page at a time; buttons or icons with the new "Go to Page" action snap between them with a smooth slide, exactly like an iPhone home screen. All pages stay live while off-screen — camera streams keep playing, so paging back is instant. Set the page count under Dashboard properties in the editor, design across the numbered page boundaries, and sync.
+
 ## v0.6.1
 
 Bug-fix release for three panel issues found in live debugging.
