@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7.2
+
+- **Media Presets now work in the panel** — preset buttons used to need Dashable's cloud library, which doesn't exist inside Home Assistant, so the widget crashed. Each button now carries an embedded copy of its preset. **To migrate existing widgets:** open the dashboard once in the Dashable editor (the widget refreshes its embedded copies automatically), save, then press Sync in the panel.
+- **Media player: controls-only mode** — new "Show Artwork" and "Show Track Info" toggles let you strip the widget down to just the transport buttons.
+- **Springier page snap** — going to another page now overshoots slightly and settles back, like a real springboard.
+
 ## v0.7.1
 
 - **"Go to Page" everywhere** — the page-snap action is now available on every widget that supports navigation: images, camera streams, WebRTC players, visual boxes (including shape/vector drawings), buttons, and icons. Tap a full-screen camera to snap to the next page, or give a visual box region a page action.
