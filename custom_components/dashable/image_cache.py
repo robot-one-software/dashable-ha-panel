@@ -27,7 +27,7 @@ _LOGGER = logging.getLogger(__name__)
 MAX_IMAGE_BYTES = 20 * 1024 * 1024  # 20 MB per image
 MAX_VIDEO_BYTES = 60 * 1024 * 1024  # 60 MB per video (looping backgrounds)
 MAX_URLS_PER_CALL = 100
-FETCH_TIMEOUT = 20  # seconds
+FETCH_TIMEOUT = 60  # seconds (covers full-body reads of large videos on slow links)
 
 _CONTENT_TYPE_EXT = {
     "image/png": ".png",
@@ -99,10 +99,26 @@ async def _async_download(hass: HomeAssistant, url: str) -> str | None:
             if resp.status != 200:
                 return None
             content_type = (resp.content_type or "").lower()
-            data = await resp.content.read(MAX_VIDEO_BYTES + 1)
+            # Read the FULL body. StreamReader.read(n) returns as soon as ANY
+            # bytes are buffered (up to n) — it does NOT wait for n bytes, so
+            # slow CDNs used to yield truncated files that decoded as blank
+            # full-size images. iter_chunked reads to EOF.
+            chunks: list[bytes] = []
+            total = 0
+            async for chunk in resp.content.iter_chunked(1 << 16):
+                total += len(chunk)
+                if total > MAX_VIDEO_BYTES:
+                    return None  # larger than anything we cache
+                chunks.append(chunk)
+            data = b"".join(chunks)
     except Exception:  # noqa: BLE001 - offline/unreachable is expected
         return None
     if not data:
+        return None
+    # A short body against a declared Content-Length means a broken transfer —
+    # a truncated file poisons the cache (renders as a blank image) until the
+    # next refresh, so reject it and leave the original URL in place.
+    if resp.content_length is not None and len(data) != resp.content_length:
         return None
 
     ext = _CONTENT_TYPE_EXT.get(content_type) or _sniff_ext(data)

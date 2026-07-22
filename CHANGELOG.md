@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.6.1
+
+Bug-fix release for three panel issues found in live debugging.
+
+- **Images no longer cache as blank** — the offline image cache could save a truncated file when a CDN streamed slowly (the first network chunk was treated as the whole file). A truncated PNG decodes as a fully transparent image, so affected images rendered as nothing. Downloads now read to the end and verify the byte count against the server's declared length. **After updating, press Sync once** — it re-downloads cached images and heals any blank ones.
+- **Connection Monitor works in the panel** — it pointed at your Dashable connection id, which doesn't exist inside HA, and showed a broken "select a connection" state. It now monitors the panel's own Home Assistant connection (green when connected).
+- **Agenda widget no longer crashes** — it read the calendar-events store before the first fetch and hit an "unavailable in HA viewer" error box; the store is now seeded correctly.
+
 ## v0.6.0
 
 - **Create dashboards straight from the panel** — "New for this screen" now asks for a name right in Home Assistant and creates the dashboard in your Dashable account through the integration's sync token. No Dashable login needed on the device: the panel measures the screen, the dashboard is created at exactly that size, appears in the picker immediately, and a confirmation tells you it's ready to design at my.dashable.app. (Requires a Home Assistant restart after updating — the integration gained a new command.)
