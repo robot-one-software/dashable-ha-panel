@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.4
+
+- **Cameras recover after backgrounding the app (iOS)** — switching away from the Home Assistant app suspends WebRTC, and iOS often kills the streams without any error the panel could react to, leaving black squares until a manual page refresh. The panel now health-checks every camera the moment the app returns to the foreground: connections that died are reconnected immediately, streams that look connected but stopped decoding frames are detected within ~1.5s and restarted, and paused video elements are resumed.
+
 ## v0.7.3
 
 - **Controls-only media player is now a true strip** — with artwork and track info hidden, the transport buttons float to the top with no leftover header space, and the widget can shrink to a ~50px bar (buttons scale down automatically below 70px tall).
