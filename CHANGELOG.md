@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.9.0
+
+- **Virtual devices work everywhere** — the merged native + Music Assistant "virtual devices" can now be targeted across the Media Player, Image (album art), Volume Slider, Media Preset, Toggle Slider, and Entity Value widgets, and in the Concatenate transform. Pickers list them with a link icon, and Dashable always resolves to whichever source is actually live.
+- **Music Assistant album art now loads** — artwork from Music Assistant appears in the Media Player and Image widgets. Previously it was being blocked (Music Assistant serves art from its own address, which a secure dashboard won't load); Dashable now uses Home Assistant's proxied image path.
+- **Smarter auto-detect** — virtual-device auto-detect matches speakers by their hardware id instead of just their name, so it survives renaming and finds far more pairs.
+- **Media Presets on a virtual device** — a preset pointed at a virtual device plays Music Assistant favorites on the correct Music Assistant side, even when the speaker is idle.
+- **New actions — Show / Hide a widget, and Flip a widget** — any Button, Image, Icon, or Visual Box action can now reveal or hide another widget (with an optional auto-hide countdown, and tap-again to hide), or trigger a Flip widget (with an optional auto-flip-back). Pair with a widget's new "Hidden until revealed" option to keep it hidden until you tap to show it.
+- **Stability** — fixed a Media Player widget crash ("Cannot read properties of undefined (reading 'volume_level')") that could blank the panel with some players.
+
 ## v0.8.0
 
 - **Media Devices (virtual players)** — merge a speaker's native entity and its Music Assistant entity into one "virtual device." Dashable then shows whichever is actually playing (Siri-started shows on native, Dashable-started shows on Music Assistant) and routes controls to the live source — no more guessing which entity is real. Set them up in the Dashable editor under Widgets → Media Devices (with an auto-detect that pairs by name), then point a Media Player widget at the virtual device.
