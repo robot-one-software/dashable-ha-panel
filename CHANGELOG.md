@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.11
+
+- **Clearer Media Preset errors for Music Assistant favorites** — playing a Music Assistant favorite requires a player that Music Assistant controls. Choosing a non-MA player now shows a clear message ("select a Music Assistant player") instead of a cryptic "not implemented" service error.
+
 ## v0.7.10
 
 - **Invisible touch-only slider** — a Slider can be made fully transparent in live view while still accepting drags, so you can lay it over a Linear Gauge (or anything) to give it a touch control area. Toggle "Invisible (touch-only overlay)" in the slider's appearance settings.
