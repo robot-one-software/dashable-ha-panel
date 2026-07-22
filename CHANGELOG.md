@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.3
+
+- **Controls-only media player is now a true strip** — with artwork and track info hidden, the transport buttons float to the top with no leftover header space, and the widget can shrink to a ~50px bar (buttons scale down automatically below 70px tall).
+
 ## v0.7.2
 
 - **Media Presets now work in the panel** — preset buttons used to need Dashable's cloud library, which doesn't exist inside Home Assistant, so the widget crashed. Each button now carries an embedded copy of its preset. **To migrate existing widgets:** open the dashboard once in the Dashable editor (the widget refreshes its embedded copies automatically), save, then press Sync in the panel.
