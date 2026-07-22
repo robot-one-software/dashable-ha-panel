@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.7.10
+
+- **Invisible touch-only slider** — a Slider can be made fully transparent in live view while still accepting drags, so you can lay it over a Linear Gauge (or anything) to give it a touch control area. Toggle "Invisible (touch-only overlay)" in the slider's appearance settings.
+- **Group "Fit to Contents"** — a button in a group's properties shrinks the group frame to tightly wrap its widgets, accounting for rotation (a rotated slider no longer forces a wide frame). Children aren't scaled or moved.
+
 ## v0.7.9
 
 - **Linear Gauge: "Display as Percent"** — a new toggle shows the value as a percent of the gauge's min–max range, so a 0–1 volume reading of 0.25 displays as "25%".
