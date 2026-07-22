@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.8.0
+
+- **Media Devices (virtual players)** — merge a speaker's native entity and its Music Assistant entity into one "virtual device." Dashable then shows whichever is actually playing (Siri-started shows on native, Dashable-started shows on Music Assistant) and routes controls to the live source — no more guessing which entity is real. Set them up in the Dashable editor under Widgets → Media Devices (with an auto-detect that pairs by name), then point a Media Player widget at the virtual device.
+
 ## v0.7.12
 
 - **Slider touch tracking fixed when rotated inside a group** — a slider rotated indirectly by a rotated group (or nested groups) now registers touches in the right place instead of jumping the wrong way. It accounts for the full accumulated rotation, not just the slider's own.
