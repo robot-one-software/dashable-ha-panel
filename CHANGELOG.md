@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.9
+
+- **Linear Gauge: "Display as Percent"** — a new toggle shows the value as a percent of the gauge's min–max range, so a 0–1 volume reading of 0.25 displays as "25%".
+
 ## v0.7.8
 
 - **Media Preset buttons can play Music Assistant favorites** — favorites (`library://…` and provider URIs) now play through Music Assistant on any MA player. Import them from the Dashable editor's Media Preset properties (Buttons → "Import from Music Assistant favorites"), then assign to buttons. Playlists, radio, albums, tracks, and artists are all supported.
