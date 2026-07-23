@@ -1,3 +1,14 @@
+# 0.9.4
+
+- **visionOS-style Depth effect**: widgets can be Recessed (carved into the canvas with bezel walls) or Raised (lifted slab with real side faces). Works with 3D perspective/tilt — content and tray project together — with corner-following tilt walls and a Slab Color option.
+- **Button press animation**: raised buttons (and visual boxes with actions) physically push down and spring back when tapped.
+- **3D Perspective & Depth on more widgets**: buttons, sliders and toggle sliders now support perspective/rotation and depth.
+- **Toggle slider actions**: direction-aware sequences — separate "when switched On" / "when switched Off" action lists with the full action menu (service calls, waits, navigation, show/hide, flip, countdowns).
+- **Triggered countdowns**: new "Start a Countdown" action shows a countdown widget, counts down the action's duration, fires the widget's completion action at zero, then hides it again. Countdown also gains a "Triggered by Action" data source and paints instantly (no 1s blank).
+- **Actions on display widgets**: Calendar, Digital/Analog Clock, Digital Date and the weather widgets can now run tap actions (full menu incl. multi-action) — including when placed inside groups.
+- Animation speeds accept decimals (e.g. 1.5s); duplicate Animation section removed from the Image widget panel.
+- Weather forecasts no longer fire before the HA connection is ready (fixes startup service-call errors).
+
 # Changelog
 
 ## v0.9.3
