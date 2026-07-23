@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.9.2
+
+- **Toggle slider knob no longer flickers** — the knob briefly disappeared and snapped back when sliding between springboard pages or during a flip-widget transition; it now stays painted throughout.
+- **Toolbar: compact "+" button** — "New for this screen" is now an icon-only "+" grouped on the right with Edit and Sync, so grabbing Home Assistant's pull-down on a phone no longer opens the create-dashboard dialog by accident.
+- **Flip actions: choose the destination** — a "Flip a Widget" action can flip to the next view (wrapping back to the first after the last), the previous view, or jump straight to a specific view picked by name.
+- **Flip actions honor Auto Return** — an action-triggered flip now flips back using the flip widget's own Auto Return delay when the action doesn't set its own; and a flip control inside the flip no longer double-advances on tap-to-flip widgets.
+- **Media preset artwork fix** — with Show Text off and artwork in background position, the image was drawn twice (stacked, dimmed); it now renders once at full brightness, and the dark overlay only appears when text sits on the artwork.
+
 ## v0.9.1
 
 - **Virtual devices are now first-class everywhere** — each virtual device now appears as its own entity, so it works in every widget without special support: Linear Gauge, Buttons (service calls resolve to the live player automatically), conditional styling, text transforms, and anything else that reads an entity. Previously only a handful of widgets understood virtual devices.
