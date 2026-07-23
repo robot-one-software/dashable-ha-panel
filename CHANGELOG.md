@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.9.3
+
+- **Weather from Home Assistant** — the three weather widgets (Forecast, Current Weather Icon, Current + Forecast) can now use a Home Assistant weather entity as their data source. HA-sourced weather renders fully in the panel: current conditions from the entity, daily/hourly forecasts via HA's forecast service, in your existing icon styles. (Dashable's internet weather lookup remains app-only — pick an HA weather entity for panel dashboards.)
+- **Custom weather icon sets in the panel** — choosing a custom icon set in the editor now embeds it with the widget, so your icon sets render in the panel too. Re-select a set after editing it in Settings to refresh.
+- **Weather icon tap actions** — the Current Weather Icon widget supports the full action set (navigate, go to page, service call, show/hide a widget, flip a widget, and multi-action sequences).
+- **Multi-Action sequences with waits** — Buttons, Images, Icons, Weather Icons and Visual Boxes can run an ordered sequence of actions with **Wait** pauses between steps (e.g. open garage → wait 10s → close garage). Waits run in the background and never freeze the dashboard; repeat taps are ignored while a sequence is running. Visual Box actions also gained reordering.
+- **Virtual devices are home-wide** — pairings are now defined once and shared across all dashboards (each dashboard still bundles them for the panel; open a dashboard in the editor and Sync to refresh).
+
 ## v0.9.2
 
 - **Toggle slider knob no longer flickers** — the knob briefly disappeared and snapped back when sliding between springboard pages or during a flip-widget transition; it now stays painted throughout.
