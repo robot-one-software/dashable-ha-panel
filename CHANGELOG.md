@@ -1,3 +1,7 @@
+# 0.9.9
+
+- **Timed returns cancel on interaction.** A rule's "return after N seconds" is for the unattended case — the moment you touch the screen, the pending timed return dissolves and normal idle-return behavior takes over. Condition-based returns (e.g. "when the garage closes") deliberately keep surviving interaction, so those flows still return no matter where you've navigated.
+
 # 0.9.8
 
 - **Fix: Idle Return (and timed returns / time-of-day rules) never fired in the panel.** The viewer's internal router stub produced a new object every render, so each Home Assistant entity update silently reset the idle countdown — it worked in the Dashable web app but never in the panel. Timers now run undisturbed.
