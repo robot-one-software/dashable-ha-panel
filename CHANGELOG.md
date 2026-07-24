@@ -1,3 +1,14 @@
+# 0.9.6
+
+- **Conditional Navigation v2** — a full overhaul of automatic navigation:
+  - Every rule now watches its own entity/attribute (searchable by id or friendly name); the old single shared trigger entity is gone (legacy configs keep working).
+  - New **time-of-day triggers**: fire a rule at HH:MM on chosen weekdays, like an alarm ("at 07:00 weekdays, go to page 5").
+  - Per-rule **Automatic Return**: when the condition clears, or after a delay — returning to the dashboard/page you were on (or an explicit target). You can navigate freely in between; the return follows you. Armed returns override the idle timer.
+  - **Idle Return**: with no touches/keys for N seconds, fall back to a dashboard **or a page** of the same dashboard (e.g. back to your clock page).
+  - Rules collapse to one-line summaries with expand/collapse all.
+
+Example: a clock screen springs to the security dashboard when the garage opens, lets you tap around, returns to the clock when the door closes — with an idle fallback in case it stays open.
+
 # 0.9.5
 
 - **Auto-update setting**: new "Auto" toggle in the panel toolbar (next to Sync) — Off / On load / every 5m / 15m / 1h. When online it silently pulls the latest dashboards and refreshes the screen only when yours actually changed; offline it keeps the stored copy. Per-device setting.
