@@ -1,3 +1,14 @@
+# 0.9.5
+
+- **Auto-update setting**: new "Auto" toggle in the panel toolbar (next to Sync) — Off / On load / every 5m / 15m / 1h. When online it silently pulls the latest dashboards and refreshes the screen only when yours actually changed; offline it keeps the stored copy. Per-device setting.
+- **Latching buttons**: buttons can cycle through named states (2-way or more), each with its own text, colors and action sequence — and can mirror a Home Assistant entity/attribute via per-state match values.
+- **Fix: flip widget touch dead-zones** — interactive widgets on other flip pages no longer swallow taps at mirrored positions on the visible page.
+- **Conditional "Show widget" visibility**: widgets can be hidden UNLESS a condition matches (state-driven show/hide with no actions), on every widget type.
+- **Countdown polish**: completion message persists (no more "Ready" flash), blank-when-finished option, blank idle state for triggered countdowns.
+- **Historical ticker**: per-feed templates combining fields (e.g. "{media_title} — {media_artist}"), feed item styling (background off, radius, padding, spacing).
+- Weather background effects: Rain, Drifting Clouds, Fog Layers, Lightning Storm, Sun Rays — pair with conditional effects for forecast-driven backgrounds.
+- Toggle slider "flick" action sequences and display-widget actions from 0.9.4 continue to mature (shared runner under the hood).
+
 # 0.9.4
 
 - **visionOS-style Depth effect**: widgets can be Recessed (carved into the canvas with bezel walls) or Raised (lifted slab with real side faces). Works with 3D perspective/tilt — content and tray project together — with corner-following tilt walls and a Slab Color option.
