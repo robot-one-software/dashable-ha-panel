@@ -1,3 +1,8 @@
+# 0.9.7
+
+- **Fix: Idle Return to a page never fired.** Two bugs: the page selector's displayed default ("Page 1") was never stored, and the idle timer was one-shot — after firing once it never re-armed, so a rule snapping to another page without any touch left the timer dead. Page mode now defaults to page 1, skips the no-op when already there, and always re-arms.
+- Pairs with today's app fix where dashboard saves now stamp updatedAt — the panel's Auto-update can finally detect new versions and hot-reload the screen.
+
 # 0.9.6
 
 - **Conditional Navigation v2** — a full overhaul of automatic navigation:
