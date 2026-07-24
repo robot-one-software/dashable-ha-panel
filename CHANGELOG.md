@@ -1,3 +1,8 @@
+# 0.9.8
+
+- **Fix: Idle Return (and timed returns / time-of-day rules) never fired in the panel.** The viewer's internal router stub produced a new object every render, so each Home Assistant entity update silently reset the idle countdown — it worked in the Dashable web app but never in the panel. Timers now run undisturbed.
+- The toolbar shows the bundle version (v0.9.8) so a stale cached panel is diagnosable at a glance.
+
 # 0.9.7
 
 - **Fix: Idle Return to a page never fired.** Two bugs: the page selector's displayed default ("Page 1") was never stored, and the idle timer was one-shot — after firing once it never re-armed, so a rule snapping to another page without any touch left the timer dead. Page mode now defaults to page 1, skips the no-op when already there, and always re-arms.
