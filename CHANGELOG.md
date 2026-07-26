@@ -1,3 +1,18 @@
+# 0.9.10
+
+**Six new widgets** and the kiosk lock:
+
+- **Energy Flow** — animated solar/grid/battery/home power distribution: glowing nodes, energy pulses whose speed tracks your real watts (relative to your system's max power), battery charge ring, adaptive layout for grid-only / solar / solar+battery homes, daily totals + cost strip.
+- **Entity Table** — entities as sortable rows (filter or hand-picked), configurable columns (status dot, name, state+units, any attribute, last-changed), conditional row colors, tap-to-toggle, touch scroll buttons.
+- **Keypad (Lock / Alarm)** — unlock mode runs an action sequence on the right code (auto or ✓-key submit, attempt lockout, custom prompt/error text); alarm mode drives alarm_control_panel with state line and Disarm/Home/Away.
+- **To-do List** — interactive HA todo lists: tap to check (chalkboard and no-checkbox styles included), add box, clear completed; syncs with edits from the HA app or voice.
+- **Select (Dropdown)** — for select/input_select entities.
+- **Entity Value sparkline** — inline history trend behind (or instead of) the value.
+
+**Kiosk Lock** — lock a dashboard's view mode for wall tablets: hide this panel's toolbar (picker/Sync/Edit) and/or block Escape-to-edit, unlockable for N minutes via a Keypad success action ("Unlock Kiosk Controls").
+
+Plus: widget-graph recursion guards (a broken container cycle can no longer freeze the tab), keypad tap reliability, flip-face touch fix carried forward, and assorted editor stability fixes.
+
 # 0.9.9
 
 - **Timed returns cancel on interaction.** A rule's "return after N seconds" is for the unattended case — the moment you touch the screen, the pending timed return dissolves and normal idle-return behavior takes over. Condition-based returns (e.g. "when the garage closes") deliberately keep surviving interaction, so those flows still return no matter where you've navigated.
