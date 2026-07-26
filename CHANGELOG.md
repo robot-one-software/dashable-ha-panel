@@ -1,3 +1,7 @@
+# 0.9.11
+
+- **Mobile-friendly toolbar.** The top bar is now just two targets: the dashboard picker (long names ellipsize instead of wrapping) and a ⋮ menu holding Sync now, Auto-update, Edit in Dashable, New for this screen, and the version. No more wrapped button rows or mis-taps on phones; the middle of the bar stays clear for HA's pull-down gesture.
+
 # 0.9.10
 
 **Six new widgets** and the kiosk lock:
