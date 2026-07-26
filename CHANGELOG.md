@@ -1,3 +1,7 @@
+# 0.9.13
+
+- **Toolbar auto-hides again on tablets.** Tapping the toolbar (picker, menu, Sync) on a touch screen silently cancelled its hide timer — touch fires a synthetic mouse-enter but never a mouse-leave, so the bar stayed pinned open until a reload. The hide countdown is now activity-based: it restarts on every tap and pauses only for a real mouse hovering the bar.
+
 # 0.9.12
 
 - **Keypad reliability fix.** The lock keypad could reject a correct code: very fast taps (like a double digit) could drop a keypress on slower tablets, typing again during the red "wrong code" flash silently ate the first digits of the retry, and a stray tap left an invisible leading digit that broke every code after it. Digit entry is now race-proof, retries start a clean entry instantly, unfinished entries clear themselves after 8 seconds, and codes match even if a space snuck into the code field.
