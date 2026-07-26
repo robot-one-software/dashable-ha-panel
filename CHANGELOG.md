@@ -1,3 +1,7 @@
+# 0.9.12
+
+- **Keypad reliability fix.** The lock keypad could reject a correct code: very fast taps (like a double digit) could drop a keypress on slower tablets, typing again during the red "wrong code" flash silently ate the first digits of the retry, and a stray tap left an invisible leading digit that broke every code after it. Digit entry is now race-proof, retries start a clean entry instantly, unfinished entries clear themselves after 8 seconds, and codes match even if a space snuck into the code field.
+
 # 0.9.11
 
 - **Mobile-friendly toolbar.** The top bar is now just two targets: the dashboard picker (long names ellipsize instead of wrapping) and a ⋮ menu holding Sync now, Auto-update, Edit in Dashable, New for this screen, and the version. No more wrapped button rows or mis-taps on phones; the middle of the bar stays clear for HA's pull-down gesture.
