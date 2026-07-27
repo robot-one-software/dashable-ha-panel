@@ -1,3 +1,9 @@
+# 0.9.14
+
+- **Smart Group repeats whole card designs.** Build a card once — a group with a switch, an Entity Value showing the entity's name, icons, graphics — and the Smart Group (Repeater) now clones the entire composition for every matched entity. Everything inside that's bound to an entity follows the match (the switch toggles it, the name updates live); purely visual pieces repeat unchanged. Saved widget templates (including multi-widget groups) can be imported directly, and templates styled via linked Style Templates are baked in so they render right on the panel.
+- **Countdown: full multi-step completion actions.** The timer's On Completion now runs the same action sequence editor as buttons and the keypad — services, toggles, show/hide, flips, navigation, in order. The old single action keeps working on existing widgets.
+- **Entity Table: readable columns.** Per-column transforms — Date / Time / Date+Time / Relative for raw timestamps, UPPERCASE / lowercase / Capitalize, rounding with units kept — plus per-column font family, size, weight, and color.
+
 # 0.9.13
 
 - **Toolbar auto-hides again on tablets.** Tapping the toolbar (picker, menu, Sync) on a touch screen silently cancelled its hide timer — touch fires a synthetic mouse-enter but never a mouse-leave, so the bar stayed pinned open until a reload. The hide countdown is now activity-based: it restarts on every tap and pauses only for a real mouse hovering the bar.
