@@ -1,3 +1,7 @@
+# 0.9.15
+
+- **Fixed: show/hide didn't work on nested widgets.** A widget inside a flip face or group (or a group within a group) ignored show/hide actions, conditional "show widget" rules, and its Start Hidden default at runtime — the same widget worked fine at the top level. All container children now go through the same central visibility logic at any nesting depth.
+
 # 0.9.14
 
 - **Smart Group repeats whole card designs.** Build a card once — a group with a switch, an Entity Value showing the entity's name, icons, graphics — and the Smart Group (Repeater) now clones the entire composition for every matched entity. Everything inside that's bound to an entity follows the match (the switch toggles it, the name updates live); purely visual pieces repeat unchanged. Saved widget templates (including multi-widget groups) can be imported directly, and templates styled via linked Style Templates are baked in so they render right on the panel.
