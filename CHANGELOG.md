@@ -1,3 +1,9 @@
+# 0.9.16
+
+- **Agenda knows what time it is.** New Timeline options: a current-time line drawn at "now"'s position in the list (color + optional clock label), past events dimmed / struck through / hidden (your choice, with an opacity slider), and the in-progress event highlighted with a tint or outline, a pulsing dot, and an optional NOW badge. Statuses follow real event start/end times and refresh every 30 seconds. All opt-in — existing agendas look unchanged.
+- **Label & Entity Value: opacity slider.** Fades the whole widget — background and text — and works on transparent backgrounds (watermark-style overlays).
+- **Fixed:** agenda widgets with transparent backgrounds no longer show dark shadow smudges in the corners.
+
 # 0.9.15
 
 - **Fixed: show/hide didn't work on nested widgets.** A widget inside a flip face or group (or a group within a group) ignored show/hide actions, conditional "show widget" rules, and its Start Hidden default at runtime — the same widget worked fine at the top level. All container children now go through the same central visibility logic at any nesting depth.
