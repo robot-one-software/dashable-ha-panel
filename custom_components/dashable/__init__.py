@@ -31,14 +31,17 @@ from .const import (
     FRONTEND_DIR,
     FRONTEND_FILE,
     FRONTEND_URL,
-    IMAGES_URL,
     PANEL_ICON,
     PANEL_TITLE,
     PANEL_URL_PATH,
     STORAGE_KEY,
     STORAGE_VERSION,
 )
-from .image_cache import async_setup_image_cache, images_path, ws_cache_images
+from .image_cache import (
+    DashableImageView,
+    async_setup_image_cache,
+    ws_cache_images,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -64,13 +67,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             os.path.dirname(__file__), FRONTEND_DIR, FRONTEND_FILE
         )
         await hass.http.async_register_static_paths(
-            [
-                StaticPathConfig(FRONTEND_URL, js_path, False),
-                # Cached dashboard images (offline mirror). No cache headers so
-                # a refreshed image (same filename) is picked up immediately.
-                StaticPathConfig(IMAGES_URL, images_path(hass), False),
-            ]
+            [StaticPathConfig(FRONTEND_URL, js_path, False)]
         )
+        # Cached dashboard images (offline mirror) are served through an
+        # authenticated view, NOT a static path: static paths in Home Assistant
+        # are unauthenticated, which would publish every cached file (LAN
+        # camera snapshots included) to anyone who could reach the instance.
+        hass.http.register_view(DashableImageView(hass))
         try:
             await panel_custom.async_register_panel(
                 hass,

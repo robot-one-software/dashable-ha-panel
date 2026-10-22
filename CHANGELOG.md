@@ -1,3 +1,30 @@
+# Unreleased
+
+- **Security: the offline image cache is no longer readable without logging in.**
+  Mirrored images were served from a Home Assistant *static* path, which is
+  served without authentication — so on an internet-exposed instance every
+  cached file (including snapshots pulled from LAN cameras) was readable by
+  anyone who knew or guessed the URL. They now go through an authenticated
+  view, and the panel is handed signed URLs of the same kind Home Assistant's
+  camera proxy uses, so `<img>`/`<video>` tags keep working. Existing installs
+  need no action: the panel re-requests its URLs on the next dashboard load.
+- **Security: mirroring only fetches public internet addresses.** The URL list
+  comes from the dashboard and Home Assistant fetched it server-side with no
+  restriction. Loopback, link-local (including cloud metadata addresses),
+  private, CGNAT, multicast and reserved targets are now refused — re-checked
+  at every redirect hop — and URLs carrying credentials are rejected.
+- **Security: mirroring is admin-only.** It made Home Assistant fetch and store
+  arbitrary URLs on behalf of any logged-in user. Dashboards still render for
+  non-admin users; their images just load from the internet rather than from
+  the local mirror.
+- **Security: SVG is no longer mirrored.** An SVG served from Home Assistant's
+  own origin can execute script. Any SVG a previous version cached is deleted
+  on startup, and those images load from the internet instead.
+- **The image cache is bounded.** The directory is capped at 256 MB in total
+  with least-recently-used eviction, orphaned files are removed, and manifest
+  entries whose files have gone are pruned. Previously only per-file limits
+  existed (20 MB per image, 60 MB per video) and nothing bounded the total.
+
 # 0.9.16
 
 - **Agenda knows what time it is.** New Timeline options: a current-time line drawn at "now"'s position in the list (color + optional clock label), past events dimmed / struck through / hidden (your choice, with an opacity slider), and the in-progress event highlighted with a tint or outline, a pulsing dot, and an optional NOW badge. Statuses follow real event start/end times and refresh every 30 seconds. All opt-in — existing agendas look unchanged.

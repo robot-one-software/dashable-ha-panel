@@ -91,6 +91,14 @@ etc.) render just like the web app.
   own authenticated connection — they're never exposed on an unauthenticated
   URL — and connection references in a dashboard are automatically mapped to
   *this* Home Assistant instance.
+- **Mirrored images stay behind your login.** Internet images a dashboard uses
+  are mirrored into `<config>/dashable_images` so dashboards render offline.
+  They are served through an authenticated Home Assistant view — never a public
+  static path — using signed URLs of the same kind Home Assistant's camera
+  proxy uses. Mirroring is **admin-only** and will only fetch public internet
+  addresses: it refuses loopback, link-local, private and CGNAT targets, at
+  every redirect hop. The whole directory is capped at 256 MB, oldest-unused
+  evicted first.
 - **Auto-updating frontend.** The panel's asset URL is versioned by the
   integration, so HACS updates are picked up without any cache-busting steps.
 
@@ -103,6 +111,11 @@ etc.) render just like the web app.
 - Widgets that depend on Dashable's cloud (text-to-speech announcements, the
   cloud image proxy, weather locations) show a small "unavailable" tile in the
   panel.
+- **Offline image mirroring needs an admin user.** Dashboards still render for
+  non-admin users; their internet images just load from the internet rather
+  than from the local mirror. SVG images are not mirrored at all (an SVG served
+  from Home Assistant's own origin can run scripts), so they also load from the
+  internet.
 - Requires Home Assistant **2024.6+**.
 
 ## Troubleshooting
