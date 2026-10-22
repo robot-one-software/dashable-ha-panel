@@ -1,0 +1,6 @@
+# Pinned so the suite is reproducible: pytest-homeassistant-custom-component
+# pulls in a specific Home Assistant, and home-assistant-frontend has to match
+# the version that Home Assistant pins (the integration depends on the
+# `frontend` and `panel_custom` components, which refuse to set up without it).
+pytest-homeassistant-custom-component==0.13.316
+home-assistant-frontend==20260128.6
