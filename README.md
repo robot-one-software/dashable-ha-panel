@@ -115,6 +115,15 @@ etc.) render just like the web app.
   automatically, but if a browser still shows an old build, hard-refresh the
   Home Assistant tab once.
 
+## License
+
+Everything in this repository — including the compiled Dashable dashboard
+viewer at `custom_components/dashable/frontend/dashable-panel.js` — is licensed
+under the [Apache License 2.0](LICENSE).
+
+The "Dashable" name and logos are trademarks of Robot One Software and are
+reserved; see [NOTICE](NOTICE) for the trademark and third-party attributions.
+
 ---
 
 Dashable is a product of Robot One Software. Home Assistant is a trademark of

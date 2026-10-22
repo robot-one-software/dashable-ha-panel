@@ -4,6 +4,29 @@ Copyright 2025 Robot One Software
 This product includes software developed by Robot One Software
 (https://dashable.app).
 
-The compiled Dashable dashboard viewer (custom_components/dashable/frontend/
-dashable-panel.js) and the "Dashable" name and logos are the property of
-Robot One Software. This distribution is provided for use with Home Assistant.
+LICENSE
+
+Licensed under the Apache License, Version 2.0. See the LICENSE file in this
+repository for the full terms.
+
+That license covers the entire contents of this repository, including the
+compiled Dashable dashboard viewer at
+custom_components/dashable/frontend/dashable-panel.js.
+
+TRADEMARKS
+
+As stated in section 6 of the License, the License does not grant permission to
+use the trade names, trademarks, or product names of Robot One Software.
+"Dashable" and the Dashable logos are trademarks of Robot One Software, and are
+reserved except for reasonable and customary use in describing the origin of
+the work.
+
+THIRD-PARTY COMPONENTS
+
+The compiled viewer bundles third-party open source components, which remain
+subject to their own licenses. These include React (MIT) and lucide-react
+(ISC), among others. The applicable copyright and license notices are retained
+within the bundle.
+
+Home Assistant is a trademark of the Open Home Foundation. Robot One Software
+is not affiliated with, or endorsed by, the Open Home Foundation.
