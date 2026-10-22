@@ -1,4 +1,4 @@
-# Unreleased
+# 0.10.0
 
 - **Security: the offline image cache is no longer readable without logging in.**
   Mirrored images were served from a Home Assistant *static* path, which is
