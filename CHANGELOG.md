@@ -1,3 +1,25 @@
+# 0.10.1
+
+- **Security: mirroring is now allowlisted against your synced dashboards.** The
+  panel posts the image URLs a dashboard references and Home Assistant fetches
+  them server-side; previously the only constraint on that list was that each
+  URL had to resolve to a public address. It now also has to actually appear in
+  one of the dashboards this instance has synced, so the fetch target is no
+  longer whatever the caller names. Both checks apply — the address checks are
+  unchanged and still run at every redirect hop.
+
+  A dashboard the integration cannot decode contributes nothing to the
+  allowlist, so its URLs are refused rather than falling back to the address
+  checks alone. If that happens, the affected images load from the internet
+  instead of from the local mirror (the dashboard still renders) and the reason
+  is logged as a warning naming the dashboard.
+- **Correction: synced dashboards were never encrypted.** A comment in
+  `url_guard.py` claimed they arrive sealed with a key the integration never
+  receives, and used that as the reason the weaker check was the only one
+  available. They are compressed (`DSHB<n>:` + base64 of raw-deflate JSON), no
+  key involved, which is exactly what made the allowlist above possible.
+  Thanks to **@frenck** for catching it in HACS review.
+
 # 0.10.0
 
 - **Security: the offline image cache is no longer readable without logging in.**

@@ -95,10 +95,11 @@ etc.) render just like the web app.
   are mirrored into `<config>/dashable_images` so dashboards render offline.
   They are served through an authenticated Home Assistant view — never a public
   static path — using signed URLs of the same kind Home Assistant's camera
-  proxy uses. Mirroring is **admin-only** and will only fetch public internet
-  addresses: it refuses loopback, link-local, private and CGNAT targets, at
-  every redirect hop. The whole directory is capped at 256 MB, oldest-unused
-  evicted first.
+  proxy uses. Mirroring is **admin-only**, and it will only fetch a URL that
+  (a) actually appears in one of your synced dashboards and (b) resolves to a
+  public internet address — loopback, link-local, private and CGNAT targets are
+  refused at every redirect hop. The whole directory is capped at 256 MB,
+  oldest-unused evicted first.
 - **Auto-updating frontend.** The panel's asset URL is versioned by the
   integration, so HACS updates are picked up without any cache-busting steps.
 

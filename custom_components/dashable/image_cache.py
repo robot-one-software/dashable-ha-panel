@@ -14,6 +14,10 @@ rather than an access check. Instead the files go out through a
 ``HomeAssistantView`` with ``requires_auth = True``, and ``cache_images``
 hands the panel short-lived *signed* URLs (the same mechanism the camera proxy
 uses), because an ``<img>`` tag cannot carry an auth header.
+
+What it is willing to fetch is bounded twice over: the URL has to appear in one
+of the dashboards this instance has synced (:mod:`dashboard_urls`), and it has
+to resolve to a public address at every redirect hop (:mod:`url_guard`).
 """
 from __future__ import annotations
 
@@ -38,6 +42,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.storage import Store
 
 from .const import DOMAIN, IMAGES_DIR, IMAGES_STORAGE_KEY, IMAGES_URL, STORAGE_VERSION
+from .dashboard_urls import async_allowed_image_urls
 from .url_guard import UnsafeUrlError, async_check_url, check_url_shape
 
 _LOGGER = logging.getLogger(__name__)
@@ -444,15 +449,35 @@ async def _async_mirror(
     manifest: dict = domain_data.get("image_manifest", {})
     store: Store | None = domain_data.get("image_store")
 
+    # Only URLs that genuinely appear in a synced dashboard are mirrored. This
+    # sits on top of the address checks in url_guard — it bounds *which hosts*
+    # can be named, they bound what any named host is allowed to resolve to —
+    # and a URL has to pass both.
+    allowed = await async_allowed_image_urls(hass) if msg["urls"] else set()
+
     urls: list[str] = []
+    refused = 0
     for candidate in msg["urls"][: MAX_URLS_PER_CALL * 4]:
         try:
             check_url_shape(candidate)
         except UnsafeUrlError:
             continue
+        # Exact match: the panel posts the normalized form, and
+        # ``dashboard_urls`` normalizes the dashboard the same way.
+        if candidate not in allowed:
+            refused += 1
+            continue
         urls.append(candidate)
         if len(urls) >= MAX_URLS_PER_CALL:
             break
+    if refused:
+        # One line per call, not per URL: a caller posting a long list of
+        # unknown URLs should not be able to drive the log.
+        _LOGGER.warning(
+            "Dashable: refusing to mirror %s image URL(s) that do not appear "
+            "in any synced dashboard",
+            refused,
+        )
 
     # Everything this dashboard needs is protected from eviction for the whole
     # call, including on the reconcile that runs before the first download.
@@ -517,11 +542,16 @@ async def ws_cache_images(
 ) -> None:
     """Mirror the given URLs locally; return {url: signed local URL} for successes.
 
-    Admin-only: this command makes Home Assistant fetch arbitrary URLs on the
-    caller's behalf and then stores the result, so it is not something every
-    logged-in user should be able to drive. Non-admin callers get an error, the
-    panel falls back to the original remote URLs, and dashboards still render
-    (just without the offline mirror).
+    Admin-only: this command makes Home Assistant fetch URLs on the caller's
+    behalf and then stores the result, so it is not something every logged-in
+    user should be able to drive. Non-admin callers get an error, the panel
+    falls back to the original remote URLs, and dashboards still render (just
+    without the offline mirror).
+
+    Not *arbitrary* URLs: a URL is only fetched if it appears in a synced
+    dashboard, and only if it resolves to a public address. A URL that fails
+    either check is omitted from the result exactly like a failed download, so
+    the panel keeps the original remote URL for it.
 
     Offline-safe: URLs already cached are returned without touching the
     network; failed downloads are simply omitted (the panel keeps the original

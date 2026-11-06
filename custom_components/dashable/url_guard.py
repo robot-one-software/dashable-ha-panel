@@ -6,13 +6,19 @@ dashboard could point HA at its own loopback interface, at a cloud metadata
 endpoint (``169.254.169.254``) or at any host on the LAN, and — before the
 cache was moved behind an authenticated view — publish the response.
 
-The ideal constraint would be to fetch only URLs that genuinely appear in the
-synced dashboards. That is not available to us: dashboards arrive *sealed*
-(encrypted in the browser with a key the integration never receives — see
-``api.py``, which stores and returns the blob verbatim), which is precisely why
-the panel has to post the URL list in the first place. So the rule here is the
-fallback: refuse any URL that resolves to a non-public address, re-checked at
-every redirect hop.
+The rule here is the address rule: refuse any URL that resolves to a non-public
+address, re-checked at every redirect hop. It is one of two checks and not the
+only one — :mod:`dashboard_urls` decodes the synced dashboards and the image
+cache mirrors only URLs that appear in them, so a caller cannot nominate a host
+out of thin air either. The two are additive; neither replaces the other.
+
+An earlier version of this comment claimed the stronger constraint was
+unavailable because dashboards "arrive sealed, encrypted with a key the
+integration never receives". That was wrong, and it was the stated justification
+for having only the address check. The synced payload is *compressed*, not
+encrypted — ``DSHB<n>:`` plus base64 of raw-deflate JSON, or bare JSON — and no
+key participates. Thanks to @frenck for catching it in the HACS review of
+hacs/default#9188.
 """
 from __future__ import annotations
 
