@@ -19,6 +19,27 @@
   available. They are compressed (`DSHB<n>:` + base64 of raw-deflate JSON), no
   key involved, which is exactly what made the allowlist above possible.
   Thanks to **@frenck** for catching it in HACS review.
+- **The panel is 21.8% smaller — 2.94 MB down to 2.30 MB.** The Dashable web
+  app's Firebase SDK was being compiled into the panel even though the panel has
+  no Dashable connectivity at runtime: every Firestore and Realtime Database
+  call in the shipped file ran against an inert object and could only fail.
+  Removing it takes the download from 3,079,573 to 2,407,525 bytes. Nothing the
+  panel does changes — the handful of calls that could only fail still fail the
+  same way — and the build now refuses to complete if a Firebase module gets
+  pulled back in.
+- **Fixed: a bordered widget with a transparent background no longer draws a
+  drop shadow.** The shadow outlined the invisible card behind the widget, which
+  showed up as dark smudges in its corners. 0.9.16 fixed this for the agenda
+  widgets; it now also applies to Calendar, Connection Monitor, Energy Flow,
+  Entity Table, HA History Line Chart, Historical Ticker, Keypad, Local Media,
+  Notification and To-do List. Widgets with an opaque background are unchanged.
+
+*Also in this release, with no visible effect:* the viewer is compiled from
+Dashable `master` as of 12 Nov rather than the 25 Sep build 0.10.0 shipped, so
+it picks up seven weeks of web-app change. Twelve changed files reach the panel
+bundle; ten of them are the shadow fix above and the other two are an
+equivalent-value refactor of a settings constant. See
+[BUILD_PROVENANCE.md](BUILD_PROVENANCE.md).
 
 # 0.10.0
 
