@@ -74,7 +74,8 @@ that cannot name its source commit cannot tell the difference. (POT-2782.)
 
 | Panel release | App commit | Bundle bytes | sha256 (first 16) |
 |---|---|---|---|
-| 0.10.1 (untagged) | `c9c87f7e` (`master`, 12 Nov 2026) | 2,407,525 | `07a985b55abc07f1` |
+| 0.10.1 | `6f9a678d` (`master`, 15 Nov 2026) | 2,408,747 | `5fe53c51c65f3b47` |
+| 0.10.1 (earlier untagged build, superseded) | `c9c87f7e` (`master`, 12 Nov 2026) | 2,407,525 | `07a985b55abc07f1` |
 | 0.10.0 | built 25 Sep 2026; app commit not recorded at the time, `04676308` is the last `master` commit of that day | 3,079,573 | `8ee74c393e5ba223` |
 
 Releases before 0.10.1 predate this file and have no recorded source commit.

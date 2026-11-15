@@ -1,5 +1,15 @@
 # 0.10.1
 
+- **Live button faces and images.** Dashboards built with the new Button
+  widget options render in the panel: a button's face can be a live picture
+  from an `image.` entity (for example a Bitfocus Companion button, meters and
+  all) and its label can follow an entity attribute. The Image widget, and
+  such button faces, now refresh the moment an `image.` entity redraws instead
+  of only when Home Assistant rotates the picture URL every few minutes, and a
+  new frame of the same picture swaps in without a cross-fade. The bundle is
+  built from app commit `6f9a678d`; the editor-only parts of that change (the
+  properties panel and "Add buttons from entities") are not in the panel.
+
 - **Security: mirroring is now allowlisted against your synced dashboards.** The
   panel posts the image URLs a dashboard references and Home Assistant fetches
   them server-side; previously the only constraint on that list was that each

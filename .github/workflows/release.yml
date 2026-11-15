@@ -1,0 +1,44 @@
+name: Release
+
+# Pushing a tag like v0.10.1 publishes the matching GitHub release (HACS lists
+# versions from releases, not tags). The tag must equal the manifest version
+# and have a `# <version>` section in CHANGELOG.md, whose text becomes the notes.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the tag matches the manifest version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          manifest=$(python3 -c "import json; print(json.load(open('custom_components/dashable/manifest.json'))['version'])")
+          if [ "$tag" != "$manifest" ]; then
+            echo "Tag v$tag does not match manifest version $manifest" >&2
+            exit 1
+          fi
+
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          python3 - "${GITHUB_REF_NAME#v}" <<'PY'
+          import re, sys
+          version = sys.argv[1]
+          text = open("CHANGELOG.md").read()
+          m = re.search(rf"^# {re.escape(version)}\b.*?\n(.*?)(?=^# |\Z)", text, re.S | re.M)
+          notes = m.group(1).strip() if m else f"Release {version}"
+          open("RELEASE_NOTES.md", "w").write(notes + "\n")
+          PY
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md --verify-tag
