@@ -1,3 +1,12 @@
+# 0.10.3
+
+- **Fix: a websocket result that happened to be a list could wipe every
+  entity's attributes.** Only the initial state list may populate entities
+  now; registry, to-do and history replies no longer stand in for it. In the
+  panel this could leave widgets showing entity ids instead of names after a
+  dialog or widget made such a request. Built from app commit `84e1bb9a`; the
+  connection store is the only shipped change since 0.10.2.
+
 # 0.10.2
 
 - **Image-faced buttons are just the image.** A Button widget whose face is a
