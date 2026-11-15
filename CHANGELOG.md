@@ -1,3 +1,11 @@
+# 0.10.2
+
+- **Image-faced buttons are just the image.** A Button widget whose face is a
+  live picture (for example a Bitfocus Companion button) now renders the
+  picture alone, with the widget's corner radius and no button frame or
+  background, matching the editor. Built from app commit `565a3b90`; the only
+  shipped change since 0.10.1 is the button widget.
+
 # 0.10.1
 
 - **Live button faces and images.** Dashboards built with the new Button
