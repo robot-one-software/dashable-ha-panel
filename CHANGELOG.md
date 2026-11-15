@@ -1,3 +1,11 @@
+# 0.10.4
+
+- **Optional border on image-faced buttons.** A Button widget showing a live
+  picture can draw an outline in a chosen colour and width (off by default),
+  so a dark Companion face still reads as a button on a dark dashboard.
+  Built from app commit `4261c630`; the button widget and its Companion
+  helper are the only shipped changes since 0.10.3.
+
 # 0.10.3
 
 - **Fix: a websocket result that happened to be a list could wipe every
