@@ -74,6 +74,7 @@ that cannot name its source commit cannot tell the difference. (POT-2782.)
 
 | Panel release | App commit | Bundle bytes | sha256 (first 16) |
 |---|---|---|---|
+| 0.10.5 | `6d37169c` (`master`, 15 Nov 2026) | 2,409,888 | `11e7c63297b7c1cb` |
 | 0.10.4 | `4261c630` (`master`, 15 Nov 2026) | 2,409,790 | `b0364254e75ee6b5` |
 | 0.10.3 | `84e1bb9a` (`master`, 15 Nov 2026) | 2,409,617 | `1887e838efef3f23` |
 | 0.10.2 | `565a3b90` (`master`, 15 Nov 2026) | 2,409,388 | `4609d9f9c3178b2c` |

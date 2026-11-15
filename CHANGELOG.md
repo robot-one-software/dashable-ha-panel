@@ -1,3 +1,9 @@
+# 0.10.5
+
+- **Fix: the optional border on image-faced buttons now shows.** It was drawn
+  underneath the picture. Built from app commit `6d37169c`; the button widget is
+  the only shipped change since 0.10.4.
+
 # 0.10.4
 
 - **Optional border on image-faced buttons.** A Button widget showing a live
