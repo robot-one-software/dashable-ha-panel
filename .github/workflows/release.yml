@@ -1,8 +1,10 @@
 name: Release
 
-# Pushing a tag like v0.10.1 publishes the matching GitHub release (HACS lists
+# Pushing a tag like v0.11.0 publishes the matching GitHub release (HACS lists
 # versions from releases, not tags). The tag must equal the manifest version
 # and have a `# <version>` section in CHANGELOG.md, whose text becomes the notes.
+# The release is only published once the shipped bundle has been rebuilt from
+# the public source pinned in viewer-source.json and found byte-identical.
 
 on:
   push:
@@ -13,7 +15,11 @@ permissions:
   contents: write
 
 jobs:
+  verify-bundle:
+    uses: ./.github/workflows/verify-bundle.yml
+
   release:
+    needs: verify-bundle
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,11 +36,17 @@ jobs:
       - name: Extract release notes from CHANGELOG.md
         run: |
           python3 - "${GITHUB_REF_NAME#v}" <<'PY'
-          import re, sys
+          import json, re, sys
           version = sys.argv[1]
           text = open("CHANGELOG.md").read()
           m = re.search(rf"^# {re.escape(version)}\b.*?\n(.*?)(?=^# |\Z)", text, re.S | re.M)
           notes = m.group(1).strip() if m else f"Release {version}"
+          src = json.load(open("viewer-source.json"))
+          notes += (
+              f"\n\n---\n\nPanel bundle built from [{src['repository']}@{src['tag']}]"
+              f"(https://github.com/{src['repository']}/releases/tag/{src['tag']}) "
+              f"(SHA-256 `{src['sha256']}`), rebuilt and verified by the Verify bundle workflow before this release was published."
+          )
           open("RELEASE_NOTES.md", "w").write(notes + "\n")
           PY
 

@@ -1,32 +1,39 @@
 Dashable for Home Assistant
-Copyright 2025 Robot One Software
+Copyright 2025-2026 Robot One Software
 
 This product includes software developed by Robot One Software
 (https://dashable.app).
 
 LICENSE
 
-Licensed under the Apache License, Version 2.0. See the LICENSE file in this
-repository for the full terms.
+Licensed under the GNU Affero General Public License, version 3 only
+(AGPL-3.0-only). See the LICENSE file in this repository for the full terms.
 
 That license covers the entire contents of this repository, including the
 compiled Dashable dashboard viewer at
-custom_components/dashable/frontend/dashable-panel.js.
+custom_components/dashable/frontend/dashable-panel.js. The viewer's source is
+published at https://github.com/robot-one-software/dashable-viewer under the
+same license; viewer-source.json in this repository names the tag each
+release's bundle was built from.
+
+Releases up to and including 0.10.5 were published under the Apache License,
+Version 2.0, and remain available under that license.
 
 TRADEMARKS
 
-As stated in section 6 of the License, the License does not grant permission to
-use the trade names, trademarks, or product names of Robot One Software.
-"Dashable" and the Dashable logos are trademarks of Robot One Software, and are
-reserved except for reasonable and customary use in describing the origin of
-the work.
+The license does not grant permission to use the trade names, trademarks or
+product names of Robot One Software. "Dashable" and the Dashable logos are
+trademarks of Robot One Software, and are reserved except for reasonable and
+customary use in describing the origin of the work. A modified version must
+not be presented as Dashable or as endorsed by Robot One Software.
 
 THIRD-PARTY COMPONENTS
 
 The compiled viewer bundles third-party open source components, which remain
 subject to their own licenses. These include React (MIT) and lucide-react
-(ISC), among others. The applicable copyright and license notices are retained
-within the bundle.
+(ISC), among others; the full list is the dependencies in the viewer
+repository's package.json. The applicable copyright and license notices are
+retained within the bundle.
 
 Home Assistant is a trademark of the Open Home Foundation. Robot One Software
 is not affiliated with, or endorsed by, the Open Home Foundation.

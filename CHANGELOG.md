@@ -1,3 +1,20 @@
+# 0.11.0
+
+- **The panel's source is public.** The compiled viewer is now built from
+  [robot-one-software/dashable-viewer](https://github.com/robot-one-software/dashable-viewer)
+  (tag `v0.11.0`). `viewer-source.json` records the tag and the bundle's
+  SHA-256, the Verify bundle workflow rebuilds that tag on every push, and the
+  release workflow refuses to publish unless the rebuilt file matches the
+  shipped one byte for byte.
+- **Licence change: AGPL-3.0.** From this release the repository, including
+  the compiled viewer, is licensed under the GNU Affero General Public License
+  v3.0 instead of Apache-2.0. Releases up to 0.10.5 remain under Apache-2.0.
+- Built from app commit `8eeb4bba`. Shipped changes since 0.10.5: the
+  Companion bulk-add placement fix is editor-only and not in the panel; the
+  viewer's own toolbar styles are now generated from the viewer's files rather
+  than inherited from the editor's, with no visible change intended; the panel
+  toolbar shows bundle version 0.11.0.
+
 # 0.10.5
 
 - **Fix: the optional border on image-faced buttons now shows.** It was drawn

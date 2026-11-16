@@ -102,6 +102,11 @@ etc.) render just like the web app.
   oldest-unused evicted first.
 - **Auto-updating frontend.** The panel's asset URL is versioned by the
   integration, so HACS updates are picked up without any cache-busting steps.
+- **Open source, reproducible panel.** The viewer's source is public at
+  [robot-one-software/dashable-viewer](https://github.com/robot-one-software/dashable-viewer).
+  `viewer-source.json` names the tag each release's bundle was built from, and
+  the release workflow rebuilds that tag and refuses to publish unless the
+  result matches the shipped file byte for byte.
 
 ---
 
@@ -133,7 +138,10 @@ etc.) render just like the web app.
 
 Everything in this repository — including the compiled Dashable dashboard
 viewer at `custom_components/dashable/frontend/dashable-panel.js` — is licensed
-under the [Apache License 2.0](LICENSE).
+under the [GNU Affero General Public License v3.0](LICENSE). The viewer's
+source lives at [robot-one-software/dashable-viewer](https://github.com/robot-one-software/dashable-viewer)
+under the same license. Releases up to 0.10.5 were published under the Apache
+License 2.0 and remain available under it.
 
 The "Dashable" name and logos are trademarks of Robot One Software and are
 reserved; see [NOTICE](NOTICE) for the trademark and third-party attributions.

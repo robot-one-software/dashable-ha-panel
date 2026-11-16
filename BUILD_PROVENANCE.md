@@ -1,13 +1,19 @@
 # Panel bundle provenance
 
 `custom_components/dashable/frontend/dashable-panel.js` is a compiled artefact.
-It is **not** authored here — it is built by `npm run build:viewer` in the
-Dashable app repository (`billwhyte/HADashboard`), whose `viewer/` directory
-compiles the same widget engine the web app uses, with the Dashable-only
-integrations (Firebase, auth, the Next runtime) aliased to inert stubs.
+It is **not** authored here. Since 0.11.0 it is built from the public
+[robot-one-software/dashable-viewer](https://github.com/robot-one-software/dashable-viewer)
+repository, and `viewer-source.json` at the root of this repository names the
+tag it was built from, the commit of the Dashable app the source was exported
+from, and the SHA-256 of the file. The Verify bundle workflow rebuilds the
+pinned tag on every push and the Release workflow will not publish unless the
+rebuilt file is byte-identical to the committed one.
 
-Because the bundle's source lives in another repository, the commit it was built
-from is the only thing that says what is in it. Record it here on every rebuild.
+The viewer repository is itself an export: a script in the Dashable app
+repository (`billwhyte/HADashboard`, private) walks every import from the
+viewer entry and copies exactly those files, with their paths unchanged, so
+the same Vite config builds them there. Its `SOURCE.json` records the app
+commit each export came from.
 
 ## Why this file exists
 
@@ -18,68 +24,63 @@ fact changed. The CHANGELOG said nothing about any of it. Net minified bytes
 measure the size of the output, not the size of the behaviour change; a release
 that cannot name its source commit cannot tell the difference. (POT-2782.)
 
+## How a bundle is released
+
+1. **In the app repository.** Bump `PANEL_BUNDLE_VERSION` in
+   `viewer/src/version.ts` (it is shown in the panel toolbar), commit, then
+   export: `node scripts/export-viewer-source.mjs ../dashable-viewer`. The
+   export builds the viewer with a sourcemap and refuses to finish if the
+   bundle contains a file the import walk did not reach.
+2. **In the viewer repository.** If `package.json` changed, `npm install` to
+   refresh the lockfile. Commit, tag `vX.Y.Z` (the tag must equal the version
+   in `package.json`), push. The Build workflow builds twice, fails if the two
+   outputs differ, and attaches `dashable-panel.js` and its `.sha256` to the
+   release.
+3. **Here.** `scripts/update-bundle.sh vX.Y.Z` downloads that release's bundle,
+   verifies the checksum, writes the bundle and `viewer-source.json`, and
+   prints the row for the table below. Bump the manifest version, write the
+   CHANGELOG entry, add the row, commit, tag, push.
+
 ## Rules
 
-1. **Record the source commit below in the same commit that updates the
-   bundle.** A bundle whose source commit is not written down is unauditable.
-2. **Choose the rebuild base deliberately.** Building from app `master` HEAD
+1. **Record the source below in the same commit that updates the bundle.**
+   A bundle whose source is not written down is unauditable; CI now enforces
+   the `viewer-source.json` half of this, the table is for people.
+2. **Choose the export base deliberately.** Exporting from app `master` HEAD
    ships every app change merged since the last panel release, not just the one
-   you set out to make. If some of that should not ship, build from a pinned
+   you set out to make. If some of that should not ship, export from a pinned
    commit instead.
 3. **Declare the drift in CHANGELOG.md**, in user-facing terms, whenever the
-   source commit moves by more than the change you intended. "No visible
-   effect" is a fine thing to write; silence is not.
+   app commit moves by more than the change you intended. "No visible effect"
+   is a fine thing to write; silence is not.
 4. **Determine what actually ships from the module graph, not from paths.**
    A changed file under `src/components/dashboard/` is not necessarily in the
-   panel's closure — the viewer entry pulls in a subset, and app-router pages,
-   stubbed modules and type-only modules are not in it. Build with
-   `--sourcemap` and intersect the `sources` array of `dashable-panel.js.map`
-   with the changed-file list:
+   panel's closure. The viewer repository's file list *is* the closure, so the
+   intersection of the app's changed files with it is the list of shipped
+   changes:
 
    ```sh
    # in the HADashboard checkout
-   npx vite build --config viewer/vite.config.ts --sourcemap
-   python3 - <<'PY'
-   import json, subprocess
-   m = json.load(open('viewer/dist/dashable-panel.js.map'))
-   closure = {s.replace('../../', '') for s in m['sources'] if 'node_modules' not in s}
-   changed = subprocess.run(
-       ['git', 'diff', '--name-only', '<old-base>', '<new-base>'],
-       capture_output=True, text=True).stdout.split()
-   for f in sorted(set(changed) & closure):
-       print(f)
-   PY
+   git diff --name-only <old-app-commit> <new-app-commit> \
+     | grep -F -x -f <(cd ../dashable-viewer && git ls-files src viewer)
    ```
 
-   Caveat: a module whose exports are all types is erased at transpile and so
-   never appears in `sources`. That is correct for behaviour — it contributes no
-   bytes — but it means the intersection is a floor on files, not on types.
-
-5. **Verify the shipped file reproduces.** A `--sourcemap` build is
-   byte-identical to the shipped one once the trailing `//# sourceMappingURL`
-   comment is stripped, so the sourcemap can be trusted to describe the
-   artefact actually in this repository:
-
-   ```sh
-   python3 - <<'PY'
-   import re, hashlib
-   a = open('viewer/dist/dashable-panel.js', 'rb').read()
-   b = open('<panel-repo>/custom_components/dashable/frontend/dashable-panel.js', 'rb').read()
-   a = re.sub(rb'//# sourceMappingURL=[^\n]*\n?$', b'', a)
-   print(hashlib.sha256(a).hexdigest()[:16], hashlib.sha256(b).hexdigest()[:16], a == b)
-   PY
-   ```
+   Type-only modules are in that list but contribute no bytes; a change to one
+   is a change to what the code means, not to what it does.
 
 ## Shipped bundles
 
-| Panel release | App commit | Bundle bytes | sha256 (first 16) |
-|---|---|---|---|
-| 0.10.5 | `6d37169c` (`master`, 15 Nov 2026) | 2,409,888 | `11e7c63297b7c1cb` |
-| 0.10.4 | `4261c630` (`master`, 15 Nov 2026) | 2,409,790 | `b0364254e75ee6b5` |
-| 0.10.3 | `84e1bb9a` (`master`, 15 Nov 2026) | 2,409,617 | `1887e838efef3f23` |
-| 0.10.2 | `565a3b90` (`master`, 15 Nov 2026) | 2,409,388 | `4609d9f9c3178b2c` |
-| 0.10.1 | `6f9a678d` (`master`, 15 Nov 2026) | 2,408,747 | `5fe53c51c65f3b47` |
-| 0.10.1 (earlier untagged build, superseded) | `c9c87f7e` (`master`, 12 Nov 2026) | 2,407,525 | `07a985b55abc07f1` |
-| 0.10.0 | built 25 Sep 2026; app commit not recorded at the time, `04676308` is the last `master` commit of that day | 3,079,573 | `8ee74c393e5ba223` |
+| Panel release | Viewer tag | App commit | Bundle bytes | sha256 (first 16) |
+|---|---|---|---|---|
+| 0.11.0 | `v0.11.0` | `8eeb4bba` (`master`, 16 Nov 2026) | 2,331,336 | `74d3863f8abfb2ff` |
+| 0.10.5 | — | `6d37169c` (`master`, 15 Nov 2026) | 2,409,888 | `11e7c63297b7c1cb` |
+| 0.10.4 | — | `4261c630` (`master`, 15 Nov 2026) | 2,409,790 | `b0364254e75ee6b5` |
+| 0.10.3 | — | `84e1bb9a` (`master`, 15 Nov 2026) | 2,409,617 | `1887e838efef3f23` |
+| 0.10.2 | — | `565a3b90` (`master`, 15 Nov 2026) | 2,409,388 | `4609d9f9c3178b2c` |
+| 0.10.1 | — | `6f9a678d` (`master`, 15 Nov 2026) | 2,408,747 | `5fe53c51c65f3b47` |
+| 0.10.1 (earlier untagged build, superseded) | — | `c9c87f7e` (`master`, 12 Nov 2026) | 2,407,525 | `07a985b55abc07f1` |
+| 0.10.0 | — | built 25 Sep 2026; app commit not recorded at the time, `04676308` is the last `master` commit of that day | 3,079,573 | `8ee74c393e5ba223` |
 
 Releases before 0.10.1 predate this file and have no recorded source commit.
+Releases before 0.11.0 were built privately in the app repository; their
+source is not published.
