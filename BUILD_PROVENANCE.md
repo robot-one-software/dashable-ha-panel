@@ -32,10 +32,12 @@ that cannot name its source commit cannot tell the difference. (POT-2782.)
    export builds the viewer with a sourcemap and refuses to finish if the
    bundle contains a file the import walk did not reach.
 2. **In the viewer repository.** If `package.json` changed, `npm install` to
-   refresh the lockfile. Commit, tag `vX.Y.Z` (the tag must equal the version
-   in `package.json`), push. The Build workflow builds twice, fails if the two
-   outputs differ, and attaches `dashable-panel.js` and its `.sha256` to the
-   release.
+   refresh the lockfile — the export copies the app's lockfile verbatim, so
+   this prunes it back to the viewer's own dependencies. Commit, tag `vX.Y.Z`
+   (the tag must equal the version in `package.json`), push. The Build workflow
+   typechecks, runs `npm test` (the security guards the export carries, on
+   node's built-in runner), builds twice, fails if the two outputs differ, and
+   attaches `dashable-panel.js` and its `.sha256` to the release.
 3. **Here.** `scripts/update-bundle.sh vX.Y.Z` downloads that release's bundle,
    verifies the checksum, writes the bundle and `viewer-source.json`, and
    prints the row for the table below. Bump the manifest version, write the
@@ -72,6 +74,7 @@ that cannot name its source commit cannot tell the difference. (POT-2782.)
 
 | Panel release | Viewer tag | App commit | Bundle bytes | sha256 (first 16) |
 |---|---|---|---|---|
+| 0.11.1 | `v0.11.1` | `27c8e667` (`master`, 18 Nov 2026) | 2,332,308 | `e64ace1741ee9ddc` |
 | 0.11.0 | `v0.11.0` | `8eeb4bba` (`master`, 16 Nov 2026) | 2,331,336 | `74d3863f8abfb2ff` |
 | 0.10.5 | — | `6d37169c` (`master`, 15 Nov 2026) | 2,409,888 | `11e7c63297b7c1cb` |
 | 0.10.4 | — | `4261c630` (`master`, 15 Nov 2026) | 2,409,790 | `b0364254e75ee6b5` |

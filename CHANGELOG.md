@@ -1,3 +1,36 @@
+# 0.11.1
+
+- **Security fix: a web snippet can no longer run script inside your Home
+  Assistant frontend.** The Web Snippet widget put its configured URL into the
+  iframe without checking the scheme, and the iframe had no `sandbox`
+  attribute. A `javascript:` URL in a web snippet therefore ran inside the
+  Home Assistant frontend, as whoever opened the panel. Snippet URLs are now
+  parsed and refused unless they are `http:` or `https:`, with the refusal
+  shown in the widget, and the iframe is sandboxed as
+  `allow-scripts allow-forms` — notably *without* `allow-same-origin`, so a
+  snippet's scripts cannot reach the Home Assistant frontend's DOM, cookies or
+  storage, and without `allow-top-navigation`, `allow-modals`, `allow-popups`
+  or `allow-downloads`.
+
+  Found and reported by [@frenck](https://github.com/frenck) while reviewing
+  this integration for the HACS default catalogue
+  ([hacs/default#9188](https://github.com/hacs/default/pull/9188)) — thank you.
+  If you use the Web Snippet widget, update.
+
+  Two deliberate consequences, for anyone whose dashboards rely on them:
+
+  - A snippet URL written without a scheme (`example.com/x`), or as a
+    protocol-relative URL (`//example.com/x`), is refused rather than guessed
+    at. In this panel those never loaded anyway; now the widget says so.
+  - A snippet that needs cookies or local storage of its own — anything behind
+    a login — will not work inside the sandbox's opaque origin.
+
+- Built from viewer tag `v0.11.1`, app commit `27c8e667`. That commit is the
+  only app change since `v0.11.0`: the web-snippet widget, the new URL guard it
+  calls, and the panel bundle version. No unrelated app drift rode along in
+  this release. The published viewer source now also runs the ten tests
+  covering this guard on every push.
+
 # 0.11.0
 
 - **The panel's source is public.** The compiled viewer is now built from
