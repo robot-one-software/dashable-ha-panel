@@ -35,5 +35,61 @@ subject to their own licenses. These include React (MIT) and lucide-react
 repository's package.json. The applicable copyright and license notices are
 retained within the bundle.
 
+ha-ani-weather-card — derived from, not bundled
+-----------------------------------------------
+
+Every component named above is an npm dependency compiled into the bundle.
+This one is not, and the distinction is the point of this entry: the Animated
+Weather widget was written by reading ha-ani-weather-card
+(https://github.com/alexsto1an/ha-ani-weather-card), Copyright (c) 2025
+Animated Weather Card, distributed under the MIT License, and porting parts of
+it. No file of that project is copied in or linked against. That card is Lit
+and GSAP and emits a stylesheet; the Dashable widget draws React and Framer
+Motion, and the rendering, the motion budget and the element caps are Robot One
+Software's own. What was ported is substantial enough that the MIT notice below
+travels with it:
+
+  * the OKLCH sky palette tables — a colour set for each weather condition at
+    each time of day — the dawn / day / dusk / night phase derivation built on
+    them, the OKLCH-to-sRGB conversion, and the compositing and contrast maths.
+    From the card's src/sky.ts, into src/lib/animatedWeather/sky.ts.
+
+  * the weather-condition classification (from src/utils.ts, getWeatherClass)
+    and the readable condition names (from src/weather-data.ts), both into
+    src/lib/animatedWeather/motion.ts.
+
+  * the discipline of computing the weather note's facts on the client — when
+    rain starts and stops, the high and the low and when each lands, gusts, UV
+    — so that a language model only phrases figures it has been handed and is
+    never asked to invent a time or a temperature. From src/note-generator.ts,
+    into src/lib/animatedWeather/facts.ts.
+
+The src/lib/animatedWeather paths are paths in the Dashable viewer source
+published at https://github.com/robot-one-software/dashable-viewer, and each of
+those files repeats this attribution in its own header. This repository carries
+the result compiled into
+custom_components/dashable/frontend/dashable-panel.js.
+
+  MIT License
+  Copyright (c) 2025 Animated Weather Card
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+
 Home Assistant is a trademark of the Open Home Foundation. Robot One Software
 is not affiliated with, or endorsed by, the Open Home Foundation.
