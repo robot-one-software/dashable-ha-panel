@@ -1,3 +1,64 @@
+# 0.12.0
+
+- **New widget: Animated Weather.** The sky *is* the weather — a colour set for
+  each condition at each time of day, with the sun or the moon placed in it from
+  your `sun.sun` entity, clouds at three depths, rain that splashes on the
+  bottom edge, snow that settles there, leaves that blow and twirl in wind, and
+  lightning in a storm. The temperature leads, and a second tier of readouts
+  (feels-like, wind, humidity, sunrise/sunset, and optionally gusts, UV and
+  pressure) sits under it. Every readout can be switched off, and every one can
+  be sourced from an entity of your own instead of the weather entity.
+
+  Built for a wall tablet rather than for a screenshot. Every particle in every
+  layer is drawn by ONE canvas under ONE requestAnimationFrame loop, capped at
+  140 particles and 7 animated DOM nodes whatever the weather and whatever the
+  intensity setting; the animated layers touch only `transform` and `opacity`,
+  so the compositor runs them and the main thread stays free. The loop is
+  cancelled, not throttled, when the widget is off-screen, the tab is hidden, or
+  the system asks for reduced motion.
+
+  It also refuses to become unreadable. The text colour is derived from the sky
+  rather than configured, and the palettes are swept for WCAG contrast at every
+  point text can land, for every condition and phase, with the sun composited
+  in. As the widget shrinks, readouts give way in a fixed order — the
+  temperature never does — instead of overflowing; it stays legible down to a
+  120x64 strip.
+
+  Rain, snow and leaves fall past the bottom edge by default on a widget you add
+  from now on. That means the widget paints up to 120px outside its own box, so
+  anything beneath it with a lower Layer will have rain drawn over it; clicks
+  still pass through. There is a per-widget checkbox to turn it off, and a
+  widget you had already placed keeps whatever it had.
+
+  The optional AI-written weather note needs a Dashable account with AI features;
+  everything else in the widget works with no account at all.
+
+- **Attribution.** Parts of this widget are ported from
+  [ha-ani-weather-card](https://github.com/alexsto1an/ha-ani-weather-card) (MIT)
+  — the sky palettes and phase derivation, the two-stop bloom around the light
+  source, the condition classification and readable names, the cloud silhouette
+  and its parallax depths, the blowing leaves, the rain splash and rebound
+  geometry, and the discipline of computing the note's facts on the client. The
+  NOTICE in this repository names each one against the file that carries it, and
+  carries the MIT licence. Thank you to that project.
+
+- Built from viewer tag `v0.12.0`, app commit `cfa68df1`. **Drift declaration:**
+  22 files in the published viewer closure changed since `v0.11.1`'s app commit
+  `27c8e667`, and nothing unrelated to this widget rode along. Nineteen are the
+  widget itself plus the two one-line `switch` cases that render it; the other
+  three are a type-only addition to `src/types/invites.ts`, a type-only
+  addition to `src/types/dashboard.ts` for the widget's own config fields, and
+  `path` to `node:path` in the viewer's Vite config, which is build
+  configuration and contributes no bytes to the bundle. The bundle grew 72,679
+  bytes, from 2,332,308 to 2,404,987.
+
+  Two app pull requests are deliberately NOT in this bundle: per-colour sky
+  overrides, and a fix that puts the fog band into the widget's contrast model.
+  Both are open on the app repository and will ship in a later release. Until
+  then, readouts on a `foggy` sky can measure as low as 2.7:1 against their
+  background — below the 4.5:1 every other condition is swept for. If you run a
+  dashboard that is often foggy, that is the one rough edge to know about.
+
 # 0.11.1
 
 - **Security fix: a web snippet can no longer run script inside your Home
