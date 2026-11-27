@@ -54,21 +54,49 @@ travels with it:
     them, the OKLCH-to-sRGB conversion, and the compositing and contrast maths.
     From the card's src/sky.ts, into src/lib/animatedWeather/sky.ts.
 
+  * the two-stop bloom around the light source — a tight core inside a wide
+    halo at one origin, flat out to the rim before it falls away. From the
+    card's src/fc-css.ts, into src/lib/animatedWeather/sky.ts (SKY_GLOW and
+    glowStops, for the sky) and src/lib/animatedWeather/celestial.ts (the bloom
+    drawn around the sun and the moon). The reach, the alpha and the pulse are
+    re-derived against Dashable's own contrast sweep.
+
   * the weather-condition classification (from src/utils.ts, getWeatherClass)
     and the readable condition names (from src/weather-data.ts), both into
     src/lib/animatedWeather/motion.ts.
+
+  * the cloud silhouette — a body with a larger puff up and left and a smaller
+    one up and right, each translucent so the overlaps read denser — and the
+    idea of spreading the clouds across three parallax depths. From the card's
+    cloudShape(), into src/lib/animatedWeather/motion.ts (CLOUD_ASPECT,
+    CLOUD_PARTS and CLOUD_DEPTHS). Dashable composes the three parts as
+    gradients in one node rather than three, and uses a narrower speed spread.
+
+  * the blowing leaves: the palette, the size range, the twirl range, the leaf
+    shape and the three gust characters. From the card's createGSAPLeaf in
+    src/gsap-effects.ts, into src/lib/animatedWeather/motion.ts (LEAF_COLORS,
+    LEAF_SIZE_PX, LEAF_SPIN_DEG) and
+    src/components/dashboard/animated-weather/AnimatedWeatherSky.tsx (the
+    shape, and the gusts in rollLeaf). Dashable draws them as canvas particles
+    rather than as DOM nodes on GSAP timelines.
+
+  * the rain splash and rebound geometry — two droplets thrown out sideways on
+    a parabola, and the drop itself springing back up an arc — together with
+    the share of drops that splash rather than falling through. From the card's
+    createSplash and createRebound, into src/lib/animatedWeather/motion.ts
+    (splashAt and RAIN_SPLASH_SHARE).
 
   * the discipline of computing the weather note's facts on the client — when
     rain starts and stops, the high and the low and when each lands, gusts, UV
     — so that a language model only phrases figures it has been handed and is
     never asked to invent a time or a temperature. From src/note-generator.ts,
-    into src/lib/animatedWeather/facts.ts.
+    into src/lib/animatedWeather/facts.ts. The four voice names the note offers
+    come from the same file, into src/lib/weatherNote.types.ts.
 
-The src/lib/animatedWeather paths are paths in the Dashable viewer source
-published at https://github.com/robot-one-software/dashable-viewer, and each of
-those files repeats this attribution in its own header. This repository carries
-the result compiled into
-custom_components/dashable/frontend/dashable-panel.js.
+The src/ paths above are paths in the Dashable viewer source published at
+https://github.com/robot-one-software/dashable-viewer, and each of those files
+repeats this attribution in its own header. This repository carries the result
+compiled into custom_components/dashable/frontend/dashable-panel.js.
 
   MIT License
   Copyright (c) 2025 Animated Weather Card
